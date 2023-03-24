@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Tilt+Neon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charmonman:wght@700&family=Dancing+Script:wght@500&family=Oooh+Baby&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .active {
+      background-color: #93c5fd;
+    }
+    /* ... */
+  }
+
