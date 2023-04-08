@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const _ = require('lodash');
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -20,5 +22,6 @@ module.exports = {
   },
 
   plugins: [],
+  
 }
 

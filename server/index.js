@@ -1,16 +1,18 @@
 const express = require("express")
-const app = express()
+const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors")
 const mysql = require("mysql")
 const path = require('path');
+const { dblClick } = require("@testing-library/user-event/dist/click");
 
+app.use(cors());
+app.use(express.json());
 
 var DBconnection = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
-    port: "3306",
     database: "hotel_management",
 })
 
@@ -74,6 +76,38 @@ app.post('/login', (req, res) => {
         }
     })
 })
+
+app.post('/createcustomer',(req,res)=>{
+    console.log(req.body)
+    const name = req.body.name;
+    const gender = req.body.gender;
+    const birthday = req.body.birthday;
+    const phone = req.body.phone;
+    const identity = req.body.identity;
+    const country = req.body.country;
+
+    DBconnection.query('INSERT INTO customers (FULL_NAME, GENDER, BIRTHDAY, PHONE_NUMBER, IDENTITY_NUMBER, country) VALUES (?,?,?,?,?,?)', 
+    [name,gender,birthday,phone,identity,country], (err, result) => {
+        if (err){
+            console.log(err)
+        } else{
+            res.send('value inserted')
+        }
+    }
+    );
+})
+
+app.get('/customers', (req,res) => {
+    DBconnection.query("SELECT * FROM customers", (err, result) => {
+        if (err) {
+            console.log(err)}
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
 
 // app.get('/api', (req, res ) =>{
 //     DBconnection.query("SELECT * FROM `danh_muc_phong`", (error,result) => {

@@ -2,7 +2,6 @@ import Header from "../Header";
 import { useState } from "react";
 import { useEffect } from "react";
 import RoomsData from "../data/RoomsData";
-import CustomerForm from "../CustomerForm";
 import { useParams} from "react-router-dom";
 import DatePicker from "react-datepicker";
 
@@ -26,7 +25,7 @@ export default function BookingPage(){
             </div>
             <div className="">
         
-            <CustomerForm/>
+   
         
             </div>        
             </div>

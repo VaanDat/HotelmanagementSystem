@@ -1,0 +1,12 @@
+[
+    { "id": 1, "name": "Part 1", "gender": 6, "birthday": 6, "phone": "Female", "identity": "123", "country": "Vietnam" },
+    { "id": 2, "name": "Part 2", "gender": 24, "birthday": 25, "phone": "Male", "identity": "123", "country": "Vietnam" },
+    { "id": 3, "name": "Part 3", "gender": 39, "birthday": 39, "phone": "Male", "identity": "123", "country": "Vietnam" },
+    { "id": 4, "name": "Part 4", "gender": 30, "birthday": 30, "phone": "Male", "identity": "Female", "country": "Vietnam" },
+    { "id": 5, "name": "Part 5", "gender": 25, "birthday": 30, "phone": "Male", "identity": "123", "country": "Vietnam" },
+    { "id": 6, "name": "Part 6", "gender": 16, "birthday": 16, "phone": "Male", "identity": "123", "country": "Vietnam" },
+    { "id": 7, "name": "Part 7", "gender": 50, "birthday": 54, "phone": "Male", "identity": "123", "country": "Vietnam" }
+]
+
+
+  

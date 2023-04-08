@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { useState, useEffect } from 'react'
 import Header from "./Header";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import IndexPage from "./pages/IndexPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -10,7 +10,7 @@ import RoomDetail from "./pages/RoomDetail";
 import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
-
+import CustomerTable from "./pages/Customers/CustomersTable"
 function App() {
   const [data, setData] = useState(null);
 
@@ -23,7 +23,7 @@ function App() {
   }, [])
 
   return (
-    data == null ? (
+
 
       <Routes>
         <Route path="/" element={<Layout />}/>
@@ -34,32 +34,20 @@ function App() {
         <Route path="/rooms" element={<RoomsPage/>} />
         <Route path="/roomdetail/:id" element={<RoomDetail/>} />
         <Route path="/roomdetail/:id/bookingpage" element={<BookingPage/>} />
-
+        <Route path="/admin/dashboard" element={<AdminPage />} />
+        <Route path="/admin/reservations" element={<AdminPage />} />
+        <Route path="/admin/rooms" element={<AdminPage />} />
+        <Route path="/admin/rentalreceipt" element={<AdminPage />} />
+        <Route path="/admin/customers" element={<AdminPage />} />
+        <Route path="/admin/staffs" element={<AdminPage />} />
+        <Route path="/admin/revenue" element={<AdminPage />} />
+        <Route path="/admin/roomstype" element={<AdminPage />} />
+        <Route path="/test/customer" element={<CustomerTable/>} />
       </Routes>
+   
 
 
 
 
-
-
-
-
-    ) : (
-      <div className="App">
-        {
-          data.map((item) => {
-            return (
-              <>
-                <p>{item.STT}</p>
-                <p>{item.Phong}</p>
-                <p>{item.Loai_Phong}</p>
-              </>
-            )
-          })
-        }
-      </div>
-    )
-  );
-}
-
+  )}
 export default App;

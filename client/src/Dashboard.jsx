@@ -10,7 +10,7 @@ export default function Dashboard() {
       ];
     return (
         <div className="">
-            <Liveclock/>
+            {/* <Liveclock/> */}
             <div className="cards flex">
                 {DashboardCards.map((card,index) => (
                     <div 
