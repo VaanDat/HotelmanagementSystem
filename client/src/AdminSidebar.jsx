@@ -12,6 +12,7 @@ import Logoimg from "./assets/logo.png"
 import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
 import ReactDOM from 'react-dom/client';
+import './css/RoomsTypebg.css'
 
 export default function AdminSidebar({onClick}) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
@@ -91,7 +92,7 @@ export default function AdminSidebar({onClick}) {
         </ul>
       </div>
       <div className="h-screen flex-1 p-7">
-        <h1 className="text-2xl font-semibold ">Home Page</h1>
+        <h1 className="text-2xl font-semibold">Home Page</h1>
         <div id='render-item'>
 
         </div>

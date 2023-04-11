@@ -153,9 +153,10 @@ app.post('/createroom', (req, res) => {
     const price = req.body.price;
     const inroom = req.body.inroom;
     const status = req.body.status;
+    const description = req.body.description;
 
-    DBconnection.query('INSERT INTO rooms (ROOM_NO, TYPE, IN_ROOM, PRICE, STATUS) VALUES (?,?,?,?,?)',
-        [roomno, type, inroom, price, status], (err, result) => {
+    DBconnection.query('INSERT INTO rooms (ROOM_NO, TYPE, IN_ROOM, PRICE, STATUS, DESCRIPTION) VALUES (?,?,?,?,?,?)',
+        [roomno, type, inroom, price, status, description], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -183,10 +184,11 @@ app.put('/updateroom', (req, res) => {
     const inroom = req.body.inroom
     const price = req.body.price
     const status = req.body.status
+    const description = req.body.description
     const id = req.body.id
 
-    DBconnection.query("UPDATE rooms SET ROOM_NO = ?, TYPE = ?, IN_ROOM = ?,PRICE = ?, STATUS = ? WHERE ID = ?", 
-    [roomno, type, inroom, price, status, id], (err,result) => {
+    DBconnection.query("UPDATE rooms SET ROOM_NO = ?, TYPE = ?, IN_ROOM = ?,PRICE = ?, STATUS = ?, DESCRIPTION = ? WHERE ID = ?", 
+    [roomno, type, inroom, price, status, description, id], (err,result) => {
         if (err){
             console.log(err)
         }
@@ -199,6 +201,72 @@ app.put('/updateroom', (req, res) => {
 app.delete('/deleteroom/:id', (req,res) => {
     const id=req.params.id
     DBconnection.query("DELETE FROM rooms WHERE ID = ?", [id], (err,result) =>{
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
+    })
+})
+
+//RoomsType
+
+app.post('/createroomstype', (req, res) => {
+    console.log(req.body)
+    const type = req.body.type;
+    const level = req.body.level;
+    const price = req.body.price;
+    const capacity = req.body.capacity;
+    const rate = req.body.rate
+    const description = req.body.desc;
+
+    DBconnection.query('INSERT INTO rooms_type (TYPE, LEVEL, PRICE, CAPACITY, SC_RATE, DESCRIPTION) VALUES (?,?,?,?,?,?)',
+        [type, level, price, capacity, rate, description], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send('value inserted')
+            }
+        }
+    );
+})
+
+app.get('/roomstype', (req, res) => {
+    DBconnection.query("SELECT * FROM rooms_type", (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.put('/updateroomstype', (req, res) => {
+    const type = req.body.type;
+    const level = req.body.level;
+    const price = req.body.price;
+    const capacity = req.body.capacity;
+    const rate = req.body.rate
+    const description = req.body.desc;
+    const id = req.body.id;
+
+    DBconnection.query("UPDATE rooms_type SET TYPE = ?, LEVEL = ?, PRICE = ?, CAPACITY = ?, SC_RATE = ?, DESCRIPTION = ? WHERE ID = ?", 
+    [type, level, price, capacity, rate, description, id], (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
+app.delete('/deleteroomstype/:id', (req,res) => {
+    const id=req.params.id;
+    DBconnection.query("DELETE FROM rooms_type WHERE ID = ?", [id], (err,result) =>{
         if (err){
             console.log(err)
         }

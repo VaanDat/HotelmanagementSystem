@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTable } from 'react-table';
 import classNames from 'classnames';
 
 const Table = ({ tableInstance }) => {
@@ -29,7 +28,7 @@ const Table = ({ tableInstance }) => {
         {rows.map(row => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} className="border-t border-gray-200">
+            <tr {...row.getRowProps()}  className="border-t border-gray-200">
               {row.cells.map(cell => (
                 <td
                   {...cell.getCellProps()}

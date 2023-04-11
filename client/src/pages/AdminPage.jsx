@@ -8,8 +8,9 @@ import RentalReceipt from "./RentalReceipt/RentailReceipt";
 import Customers from "./Customers/Customers";
 import Staffs from "../Staffs";
 import Revenue from "../Revenue";
-import RoomsType from "../RoomsType";
+import RoomsType from "./RoomsType/RoomsType";
 import { useNavigate, useLocation } from "react-router-dom";
+import '../css/RoomsTypebg.css'
 
 export default function AdminPage() {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function AdminPage() {
       }, [location.pathname]);
 
     return (
-        <div className="flex admin-page bg-[#f3f4f6]">
+        <div className="flex admin-page bg-[#f3f4f6] forbg bg-cover bg-dunes bg-no-repeat w-full h-full">
             <AdminSidebar
             onClick={handleSidebarClick}
             />
