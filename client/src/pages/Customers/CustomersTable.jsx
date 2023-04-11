@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useTable } from 'react-table';
+import { useTable, useFilters } from 'react-table';
 import Table from '../../Table';
 import Popup from "reactjs-popup";
-import CustomerModal from './CustomerModal';
+import CustomerModal from './Modals/AddCustomerModal';
 import axios from "axios";
 import { get } from 'lodash';
 import { useMemo } from 'react';
@@ -34,8 +34,8 @@ export default function CustomerTable() {
 
   // getCustomer();
 
-  const data = useMemo(() => CustomerData, []);
-  const columns = useMemo(() => CustomerColumns, []);
+  const data = useMemo(() => CustomerData);
+  const columns = useMemo(() => CustomerColumns);
 
   const tableInstance = useTable({ columns, data });
 

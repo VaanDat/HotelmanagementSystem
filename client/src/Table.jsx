@@ -19,6 +19,7 @@ const Table = ({ tableInstance }) => {
                 )}
               >
                 {column.render('Header')}
+                
               </th>
             ))}
           </tr>

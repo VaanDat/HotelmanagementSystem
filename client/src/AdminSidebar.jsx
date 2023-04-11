@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Arrowimg from "./assets/arrow-right.png"
 import Dashboardimg from "./assets/dashboard.png"
 import Reservationimg from "./assets/reservation.png"
@@ -15,23 +15,30 @@ import ReactDOM from 'react-dom/client';
 
 export default function AdminSidebar({onClick}) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
-  const [activeItem, setActiveItem] = useState('Dashboard');
+  const [activeItem, setActiveItem] = useState(localStorage.getItem('activeItem') || 'dashboard');
   const handleItemClick = (itemName) => {
       setActiveItem(itemName);
-  
+      localStorage.setItem('activeItem', itemName);
     };
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Dashboard", src: Dashboardimg, component: "Dashboard",},
-    { title: "Reservations", src: Reservationimg, component: "Reservations",},
-    { title: "Rooms", src: Roomimg, gap: true, component: "Rooms" },
-    { title: "Rental Receipt", src: Receiptimg, component: "RentalReceipt" },
-    { title: "Customers ", src: Guestimg, component: "Customers"  },
-    { title: "Staffs", src: Staffsimg, component: "Staffs" },
-    { title: "Revenue", src: Revenueimg, gap: true, component: "Revenue" },
-    { title: "Rooms Type", src: Roomstypeimg, component: "RoomsType" },
+    { title: "Dashboard", src: Dashboardimg, component: "dashboard",},
+    { title: "Reservations", src: Reservationimg, component: "reservations",},
+    { title: "Rooms", src: Roomimg, gap: true, component: "rooms" },
+    { title: "Rental Receipt", src: Receiptimg, component: "rentalreceipt" },
+    { title: "Customers ", src: Guestimg, component: "customers"  },
+    { title: "Staffs", src: Staffsimg, component: "staffs" },
+    { title: "Revenue", src: Revenueimg, gap: true, component: "revenue" },
+    { title: "Rooms Type", src: Roomstypeimg, component: "roomstype" },
   ];
- 
+  
+  useEffect(() => {
+    const active = localStorage.getItem('activeItem');
+    if (active) {
+      setActiveItem(active);
+    }
+  }, []);
+
   return (
    
     <div className="flex">

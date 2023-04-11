@@ -1,17 +1,21 @@
 import Popup from "reactjs-popup";
-import CustomerModal from './CustomerModal';
+import Edit from '../../assets/edit.png'
+import ActionCustomerModal from "./Modals/ActionCustomerModal";
+import {ColumnFilter} from './ColumnFilter'
 
 export const CustomerColumns = [
-    { Header: 'ID', accessor: 'ID' },
-    { Header: 'Full name', accessor: 'FULL_NAME' },
-    { Header: 'Gender', accessor: 'gender' },
-    { Header: 'Birthday', accessor: 'birthday' },
-    { Header: 'Phone Number', accessor: 'phone' },
-    { Header: 'Identity Number', accessor: 'identity' },
-    { Header: 'Country', accessor: 'country' },
+    { Header: 'ID', accessor: (row,index) => index + 1},
+    { Header: 'Full name', accessor: 'FULL_NAME', Filter: ColumnFilter},
+    { Header: 'Room', accessor: 'ROOM' },
+    { Header: 'Gender', accessor: 'GENDER' },
+    { Header: 'Birthday', accessor: 'BIRTHDAY' },
+    { Header: 'Phone Number', accessor: 'PHONE_NUMBER' },
+    { Header: 'Identity Number', accessor: 'IDENTITY_NUMBER' },
+    { Header: 'Country', accessor: 'COUNTRY' },
     {
-      Header: 'Actions', Cell: ({ row }) => <Popup modal trigger={<button>Click Me</button>}>
-        {close => <CustomerModal close={close} />}
+      Header: 'Action', Cell: ({ row }) => <Popup modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>
+        {close => <ActionCustomerModal close={close} ID={row.original.ID} name={row.original.FULL_NAME} room={row.original.ROOM} gender={row.original.GENDER} 
+        birthday={row.original.BIRTHDAY} phone={row.original.PHONE_NUMBER} identity={row.original.IDENTITY_NUMBER} country={row.original.COUNTRY} />}
       </Popup>
     },
   ];

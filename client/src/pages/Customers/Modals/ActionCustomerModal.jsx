@@ -1,49 +1,74 @@
-import "../../css/localpopup.css"
-import "../../css/localpopupbasic.css"
+import "../../../css/localpopup.css"
+import "../../../css/localpopupbasic.css"
 import DatePicker from "react-datepicker";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
-import axios from "axios";
+import axios from "axios"
 
-export default function CustomerModal({ close }) {
+
+export default function ActionCustomerModal({ close, ID, name, room,  gender, birthday, phone, identity, country}) {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
-    const [FULL_NAME, setFullName] = useState('')
-    const [GENDER, setGender] = useState('male')
-    const [BIRTHDAY, setBirthday] = useState('')
-    const [PHONE_NUMBER, setPhone] = useState('')
-    const [IDENTITY_NUMBER, setIdentity] = useState('')
-    const [COUNTRY, setCountry] = useState('Viet Nam')
 
+    const [nFULL_NAME, setnewFullName] = useState(name)
+    const [nROOM, setnewRoom] = useState(room)
+    const [nGENDER, setnewGender] = useState(gender)
+    const [nBIRTHDAY, setnewBirthday] = useState(birthday)
+    const [nPHONE_NUMBER, setnewPhone] = useState(phone)
+    const [nIDENTITY_NUMBER, setnewIdentity] = useState(identity)
+    const [nCOUNTRY, setnewCountry] = useState(country)
+
+    const [CustomerData, setData] = useState([]);
+
+    useEffect(() => {
+      const getCustomer = async () => {
+        // let temp = axios.get('http://localhost:5000/customers')
+        const response = await fetch("http://localhost:5000/customers");
+        const jsonData = await response.json(); 
+        setData(jsonData);
+      }
+      getCustomer()
+    },[])
+  
+    console.log(ID)
+    const data = useMemo(() => CustomerData);
 
 
     const changeHandler = (value) => {
         setValue(value);
-        setCountry(value.label);
+        setnewCountry(value.label);
     }
 
-    const displayInfo = () => {
-        console.log(FULL_NAME,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY)
+
+    const UpdateCustomer = (ID) => {
+        console.log('thanh cong')
+        axios.put("http://localhost:5000/updatecustomers", {
+            id: ID,
+            name: nFULL_NAME,
+            room: nROOM,
+            gender: nGENDER,
+            birthday: nBIRTHDAY,
+            phone: nPHONE_NUMBER,
+            identity: nIDENTITY_NUMBER,
+            country: nCOUNTRY,
+        }).then(
+            (response) => {
+                alert("updated")
+            }
+        )
     }
 
-    const addCustomer = () => {
-        console.log(FULL_NAME,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY)
-        axios.post('http://localhost:5000/createcustomer',{
-            name: FULL_NAME,
-            gender: GENDER,
-            birthday: BIRTHDAY,
-            phone: PHONE_NUMBER,
-            identity: IDENTITY_NUMBER,
-            country: COUNTRY,
-        }).then(() => {
-            console.log("thanh cong")
-        })
+    const DeleteCustomer = (ID) => {
+        axios.delete(`http://localhost:5000/deletecustomer/${ID}`)
     }
 
-  
+    const handleSubmit = (e) => {
+        e.prevenDefault();
+    }
+
 
     return (
         <div className="pl-24">
@@ -52,24 +77,27 @@ export default function CustomerModal({ close }) {
                     &times;
                 </a>
             </div>
-            <form className="grid grid-rows-4 grid-flow-col gap-x-2 gap-y-4 -translate-x-16">
+            <form onSubmit={handleSubmit} className="grid grid-rows-4 grid-flow-col gap-x-2 gap-y-4 -translate-x-16">
+                
                 <div className="ml-8 mt-2">
                     <label htmlFor="name" className="text-sm font-medium text-gray-900 dark:text-white">Full name</label>
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-10 w-[18rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         type="text"
                         name="name"
                         id="name"
+                        defaultValue={name}
                         onChange={(e) => {
-                            setFullName(e.target.value);
+                            setnewFullName(e.target.value);
                         }}
 
                     />
                 </div>
                 <div className="ml-8 mt-1">
                     <label htmlFor="gender" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender </label>
-                    <select value={GENDER} onChange={(e) => {
-                        setGender(e.target.value);
+                    <select onChange={(e) => {
+                        setnewGender(e.target.value);
                     }}
+                        defaultValue={gender}
                         className="ml-[50px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="gender" name="gender">
                         <option value="male">male</option>
                         <option value="female">female</option>
@@ -78,10 +106,10 @@ export default function CustomerModal({ close }) {
                 </div>
                 <div className="ml-8 mt-1 flex">
                     <label htmlFor="birthday" className="mb-2 mt-1 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
-                    <DatePicker id="birthday" dateFormat="dd/MM/yyyy" value={BIRTHDAY} className="ml-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " selected={startDate} onChange={(date) => {
+                    <DatePicker id="birthday" dateFormat="dd/MM/yyyy" value={nBIRTHDAY} className="ml-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " selected={startDate} onChange={(date) => {
                         const dateString = new Date(date).toLocaleDateString()
                         setStartDate(date);
-                        setBirthday(dateString)
+                        setnewBirthday(dateString)
                     }} />
                 </div>
                 <div className="ml-8 mt-1">
@@ -90,8 +118,9 @@ export default function CustomerModal({ close }) {
                         type="text"
                         name="phone"
                         id="phone"
+                        defaultValue={phone}
                         onChange={(e) => {
-                            setPhone(e.target.value);
+                            setnewPhone(e.target.value);
                         }}
                     />
                 </div>
@@ -101,8 +130,9 @@ export default function CustomerModal({ close }) {
                         type="text"
                         name="identity"
                         id="identity"
+                        defaultValue={identity}
                         onChange={(e) => {
-                            setIdentity(e.target.value);
+                            setnewIdentity(e.target.value);
                         }}
 
                     />
@@ -111,11 +141,26 @@ export default function CustomerModal({ close }) {
                     <label htmlFor="country" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
                     <Select id="country" className="z-10 w-[10rem] ml-12 -translate-y-1" options={options} value={value} 
                         onChange={changeHandler}
+                        defaultInputValue={country}
                         />
                 </div>
+                <div className="ml-8 mt-1">
+                    <label htmlFor="room" className="text-sm font-medium text-gray-900 dark:text-white">Room</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-[60px] w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="text"
+                        name="room"
+                        id="room"
+                        defaultValue={room}
+                        onChange={(e) => {
+                            setnewRoom(e.target.value);
+                        }}
+                    />
+                </div>
                 <div className="relative mt-2">
-                    <button className="right-0 bottom-0 translate-y-20 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg">Delete</button>
-                    <div className="right-0 bottom-0 absolute translate-y-20 -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer" onClick={addCustomer}>Save Changes</div>
+                    <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg" 
+                    onClick={()=>{DeleteCustomer(ID)}}
+                        >Delete</button>
+                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer" type="submit" onClick={()=>{UpdateCustomer(ID)}}>Save Changes</button>
                 </div>
             </form>
         </div>

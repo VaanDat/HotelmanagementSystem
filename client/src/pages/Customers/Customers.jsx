@@ -1,7 +1,7 @@
 import plus from "../../assets/plus.png"
 import CustomerTable from "./CustomersTable";
 import Popup from "reactjs-popup";
-import CustomerModal from "./CustomerModal";
+import CustomerModal from "./Modals/AddCustomerModal";
 
 export default function Customers() {
     return (

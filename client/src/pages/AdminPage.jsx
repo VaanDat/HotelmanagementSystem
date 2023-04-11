@@ -9,29 +9,41 @@ import Customers from "./Customers/Customers";
 import Staffs from "../Staffs";
 import Revenue from "../Revenue";
 import RoomsType from "../RoomsType";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AdminPage() {
     const navigate = useNavigate();
-    const [activeComponent, setActiveComponent] = useState('Dashboard');
+    const location = useLocation();
+    const [activeComponent, setActiveComponent] = useState(null);
     const handleSidebarClick = (componentName) => {
         setActiveComponent(componentName);
+        console.log(componentName)
         navigate(`/admin/${componentName.toLowerCase()}`);
     };
 
+    useEffect(() => {
+        const path = location.pathname.split('/');
+        if (path[1] === 'admin') {
+          setActiveComponent(path[2]);
+        }
+      }, [location.pathname]);
+
     return (
         <div className="flex admin-page bg-[#f3f4f6]">
-            <AdminSidebar onClick={handleSidebarClick} />
+            <AdminSidebar
+            onClick={handleSidebarClick}
+            />
             <div className="main-content">
 
-                {activeComponent === 'Dashboard' && <Dashboard />}
-                {activeComponent === 'Reservations' && <Reservations />}
-                {activeComponent === 'Rooms' && <Rooms />}
-                {activeComponent === 'RentalReceipt' && <RentalReceipt />}
-                {activeComponent === 'Customers' && <Customers />}
-                {activeComponent === 'Staffs' && <Staffs />}
-                {activeComponent === 'Revenue' && <Revenue />}
-                {activeComponent === 'RoomsType' && <RoomsType />}
+                {activeComponent === 'dashboard' && <Dashboard />}
+                {activeComponent === 'reservations' && <Reservations />}
+                {activeComponent === 'rooms' && <Rooms />}
+                {activeComponent === 'rentalreceipt' && <RentalReceipt /> }
+                {activeComponent === 'customers' && <Customers />}
+                {activeComponent === 'staffs' && <Staffs />}
+                {activeComponent === 'revenue' && <Revenue />}
+                {activeComponent === 'roomstype' && <RoomsType />}
+             
             </div>
             <Userbar />
 

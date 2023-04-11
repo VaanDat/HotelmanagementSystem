@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import { useTable } from 'react-table';
 import Table from '../../Table';
 import Popup from "reactjs-popup";
-import RoomsModal from './RoomsModal';
+import AddRoomModal from './Modals/AddRoomModal';
+import { useMemo,useEffect } from 'react';
+import { RoomsColumns } from './RoomsColumns';
 
 const RoomsTable = () => {
-  const [data, setData] = useState([
-    { id: 101, type: 'A', inroom: '2', price: "26/08/2002", status: "123456789", },
-    { id: 102, type: 'B', inroom: '2', price: "26/08/2002", status: "123456789", },
-    { id: 103, type: 'C', inroom: '2', price: "26/08/2002", status: "123456789", },
+  const [RoomData, setData] = useState([]);
 
-  ]);
+  useEffect(() => {
+    const getRoom = async () => {
+      // let temp = axios.get('http://localhost:5000/customers')
+      const response = await fetch("http://localhost:5000/rooms");
+      const jsonData = await response.json(); 
+      console.log(jsonData);
+      setData(jsonData);
+    }
+    getRoom()
+  },[])
 
-  const columns = [
-    { Header: 'Rooms no', accessor: 'id' },
-    { Header: 'Type', accessor: 'type' },
-    { Header: 'In Room', accessor: 'inroom' },
-    { Header: 'Price', accessor: 'price' },
-    { Header: 'Status', accessor: 'status' },
-    { Header: 'Actions', Cell: ({ row }) => <Popup modal trigger={<button>Click Me</button>}>
-    {close => <RoomsModal close={close}/>}
-  </Popup> },
-  ];
+  const data = useMemo(() => RoomData);
+  const columns = useMemo(() => RoomsColumns);
 
   const tableInstance = useTable({ columns, data });
 
