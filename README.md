@@ -39,32 +39,35 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Push code from fork
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1. Clone the repository
 
-### Code Splitting
+In your forked repository, clone the repository to your local machine using the `git clone https://github.com/your-username/hotelmanagementweb.git` command. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 2. Add the original repository as a remote repository.
 
-### Analyzing the Bundle Size
+In your local machine using the `git remote add upstream https://github.com/TuanMiles/hotelmanagementweb` command. This allows you to keep your fork up-to-date with any changes made to the original repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 3. Fetch the changes from the original repository
 
-### Making a Progressive Web App
+In your local machine using the `git fetch upstream` command. This will bring in all the changes made to the original repository since you forked it.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 4. Switch to the local master branch
 
-### Advanced Configuration
+In your local machine using the `git checkout master` command.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 5. Merge the changes from the original repository into your local master branch.
 
-### Deployment
+In your local machine using the `git merge upstream/master` command.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 6. Resolve any merge conflicts
 
-### `npm run build` fails to minify
+### 7. Push the changes to your forked repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+In your local machine, using the `git push origin master` command.
+
+### 8. Create pull request
+
+Finally, create a pull request from your forked repository to the original repository. This allows the changes you made in your fork to be reviewed and merged into the original repository.
