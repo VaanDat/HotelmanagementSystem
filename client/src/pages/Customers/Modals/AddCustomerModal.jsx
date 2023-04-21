@@ -1,7 +1,7 @@
 import "../../../css/localpopup.css"
 import "../../../css/localpopupbasic.css"
 import DatePicker from "react-datepicker";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
@@ -19,8 +19,9 @@ export default function CustomerModal({ close }) {
     const [PHONE_NUMBER, setPhone] = useState('')
     const [IDENTITY_NUMBER, setIdentity] = useState('')
     const [COUNTRY, setCountry] = useState('Viet Nam')
+    const [ADDRESS, setAddress] = useState('')
 
-
+    
 
     const changeHandler = (value) => {
         setValue(value);
@@ -28,11 +29,11 @@ export default function CustomerModal({ close }) {
     }
 
     const displayInfo = () => {
-        console.log(FULL_NAME,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY)
+        console.log(FULL_NAME,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY,ADDRESS)
     }
 
     const addCustomer = () => {
-        console.log(FULL_NAME,ROOM,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY)
+        console.log(FULL_NAME,ROOM,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY,ADDRESS)
         axios.post('http://localhost:5000/createcustomer',{
             name: FULL_NAME,
             room: ROOM,
@@ -41,15 +42,17 @@ export default function CustomerModal({ close }) {
             phone: PHONE_NUMBER,
             identity: IDENTITY_NUMBER,
             country: COUNTRY,
+            address: ADDRESS,
         }).then(() => {
             console.log("thanh cong")
         })
     }
 
     
+    
 
     return (
-        <div className="pl-24">
+        <div className="pl-24 h-[22rem]">
             <div className="translate-x-[47rem] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;
@@ -116,6 +119,18 @@ export default function CustomerModal({ close }) {
                         onChange={changeHandler}
                         />
                 </div>
+                <div className="flex mt-3 ml-8">
+                    <label htmlFor="country" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-12 w-[14rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 -translate-y-2 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="text"
+                        name="address"
+                        id="address"
+                        onChange={(e) => {
+                            setAddress(e.target.value);
+                        }}
+
+                    />
+                </div>
                 <div className="ml-8 mt-1">
                     <label htmlFor="room" className="text-sm font-medium text-gray-900 dark:text-white">Room</label>
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-[60px] w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -127,9 +142,9 @@ export default function CustomerModal({ close }) {
                         }}
                     />
                 </div>
-                <div className="relative mt-2">
+                <div className="relative mt-2 -translate-x- translate-y-[16rem]">
                     {/* <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg">Delete</button> */}
-                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer" onClick={addCustomer}>Save Changes</button>
+                    <button className="right-0 bottom-0 absolute 8 bg-[#374151] w-[8rem] text-white p-2 rounded-lg cursor-pointer" onClick={addCustomer}>Save Changes</button>
                 </div>
             </form>
         </div>

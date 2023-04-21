@@ -8,7 +8,7 @@ import countryList from 'react-select-country-list'
 import axios from "axios"
 
 
-export default function ActionCustomerModal({ close, ID, name, room,  gender, birthday, phone, identity, country}) {
+export default function ActionCustomerModal({ close, ID, name, room,  gender, birthday, phone, identity, country, address}) {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
@@ -20,6 +20,7 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
     const [nPHONE_NUMBER, setnewPhone] = useState(phone)
     const [nIDENTITY_NUMBER, setnewIdentity] = useState(identity)
     const [nCOUNTRY, setnewCountry] = useState(country)
+    const [nADDRESS, setnewAddress] = useState(address)
 
     const [CustomerData, setData] = useState([]);
 
@@ -54,6 +55,7 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
             phone: nPHONE_NUMBER,
             identity: nIDENTITY_NUMBER,
             country: nCOUNTRY,
+            address: nADDRESS,
         }).then(
             (response) => {
                 alert("updated")
@@ -71,7 +73,7 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
 
 
     return (
-        <div className="pl-24">
+        <div className="pl-24 h-[22rem]">
             <div className="translate-x-[47rem] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;
@@ -144,6 +146,19 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
                         defaultInputValue={country}
                         />
                 </div>
+                <div className="flex mt-3 ml-8">
+                    <label htmlFor="country" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                    <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-12 w-[14rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 -translate-y-2 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        type="text"
+                        name="address"
+                        id="address"
+                        defaultValue={address}
+                        onChange={(e) => {
+                            setnewAddress(e.target.value);
+                        }}
+
+                    />
+                </div>
                 <div className="ml-8 mt-1">
                     <label htmlFor="room" className="text-sm font-medium text-gray-900 dark:text-white">Room</label>
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-[60px] w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -156,11 +171,11 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
                         }}
                     />
                 </div>
-                <div className="relative mt-2">
+                <div className="relative mt-2 translate-y-[16rem]">
                     <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg" 
                     onClick={()=>{DeleteCustomer(ID)}}
                         >Delete</button>
-                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer" type="submit" onClick={()=>{UpdateCustomer(ID)}}>Save Changes</button>
+                    <button className="right-0 bottom-0 absolute -translate-x-4 bg-[#374151] text-white p-2 w-[8rem] rounded-lg cursor-pointer" type="submit" onClick={()=>{UpdateCustomer(ID)}}>Save Changes</button>
                 </div>
             </form>
         </div>

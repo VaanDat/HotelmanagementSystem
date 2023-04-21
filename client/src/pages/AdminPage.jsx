@@ -1,10 +1,10 @@
 import AdminSidebar from "../AdminSidebar";
 import Userbar from "../Userbar";
 import Dashboard from "../Dashboard";
-import Reservations from "../Reservations";
+import Reservations from "./Reservations/Reservations";
 import Rooms from "./Rooms/Rooms";
 import { useState, useEffect } from "react";
-import RentalReceipt from "./RentalReceipt/RentailReceipt";
+import RentalReceipt from "./RentalReceipt/RentalReceipt";
 import Customers from "./Customers/Customers";
 import Staffs from "../Staffs";
 import Revenue from "../Revenue";
@@ -30,7 +30,7 @@ export default function AdminPage() {
       }, [location.pathname]);
 
     return (
-        <div className="flex admin-page bg-[#f3f4f6] forbg bg-cover bg-dunes bg-no-repeat w-full h-full">
+        <div className="flex admin-page bg-[#f3f4f6] bg-cover bg-dunes bg-no-repeat w-full h-full">
             <AdminSidebar
             onClick={handleSidebarClick}
             />

@@ -70,7 +70,7 @@ export default function ActionRoomsType({ close, ID, type, level, price, capacit
 
 
     return (
-        <div className="pl-24">
+        <div className="pl-24 h-[22rem]">
             <div className="translate-x-[41rem] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;

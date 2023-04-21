@@ -1,0 +1,17 @@
+.ReservationForm div div label {
+    font-size: small;
+    color: white
+}
+
+.customerbg {
+    background-image: url(../../public/images/rscustomerbg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.roombg {
+    background-image: url(../../public/images/rooms-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

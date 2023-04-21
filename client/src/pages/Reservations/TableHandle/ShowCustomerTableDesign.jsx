@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const Table = ({ tableInstance, filter }) => {
+const ShowCustomerTableDesign = ({ tableInstance, filter }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
 
   return (
@@ -53,4 +53,4 @@ const Table = ({ tableInstance, filter }) => {
   );
 };
 
-export default Table;
+export default ShowCustomerTableDesign;

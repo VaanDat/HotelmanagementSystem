@@ -1,6 +1,6 @@
 import "../../../css/localpopupbasic.css"
 import "../../../css/localpopup.css"
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import countryList from 'react-select-country-list'
 import axios from 'axios'
@@ -9,6 +9,7 @@ export default function AddRoomModal({ close }) {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
+    const [isOpenPopup1, setIsOpenPopup1] = useState(false);
 
     const changeHandler = value => {
         setValue(value)
@@ -20,6 +21,8 @@ export default function AddRoomModal({ close }) {
     const [PRICE, setPrice] = useState('')
     const [STATUS, setStatus] = useState('')
     const [DESCRIPTION, setDesc] = useState('')
+
+    const [RoomsTypeList, setRTList] = useState([]);
 
     const displayInfo = () => {
         console.log(ROOM_NO, TYPE, IN_ROOM, PRICE, STATUS)
@@ -41,9 +44,22 @@ export default function AddRoomModal({ close }) {
         })
     }
 
+    useEffect(() => {
+        const getRoomsType = async () => {
+            // let temp = axios.get('http://localhost:5000/customers')
+            const response = await fetch("http://localhost:5000/roomstype");
+            const jsonData = await response.json();
+            console.log(jsonData);
+            setRTList(jsonData);
+        }
+        getRoomsType()
+    }, [])
+    // getRoomsType()
+
+    const RTdata = useMemo(() => RoomsTypeList);
 
     return (
-        <div className="">
+        <div className="h-[22rem]">
             <div className="translate-x-[620px] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;
@@ -61,14 +77,16 @@ export default function AddRoomModal({ close }) {
                     /></div>
                 <div className="ml-8 translate-y-[10px]">
                     <label htmlFor="type" className="mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-                    <select className="ml-12" id="type"
+                    <select className="ml-12 w-[3rem] p-1 rounded-sm" id="type"
                         onChange={(e) => {
                             setType(e.target.value);
                         }}
                     >
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
+                         {RTdata.map((val, key) => {
+                            return (
+                                <option className="rounded-xl" value={val.TYPE}>{val.TYPE}</option>
+                            )
+                        })}
                     </select>
                 </div>
                 <div className="ml-8 translate-y-[-5px] flex">
@@ -118,7 +136,7 @@ export default function AddRoomModal({ close }) {
                 </div>
 
 
-                <div className="relative">
+                <div className="relative translate-y-8">
                     {/* <button className="right-0 bottom-0 translate-y-20 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg" type="submit">Delete</button> */}
                     <button className="right-0 bottom-0 absolute translate-y-[-40px] translate-x-[18rem] bg-[#374151] text-white p-2 rounded-lg" onClick={addRoom}>Save Changes</button>
                 </div>

@@ -1,59 +1,91 @@
 import "../../../css/localpopup.css"
 import "../../../css/localpopupbasic.css"
 import DatePicker from "react-datepicker";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
-import axios from "axios";
+import axios from "axios"
 
-export default function AddRoomsType({ close }) {
+
+export default function ActionReservations({ close, ID, type, level, price, capacity, rate, desc }) {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
-    
-    const [TYPE, setType] = useState('')
-    const [LEVEL, setLevel] = useState('')
-    const [CAPACITY, setCapacity] = useState('male')
-    const [SC_RATE, setRate] = useState('')
-    const [DESC, setDesc] = useState('')
-    const [PRICE, setPrice] = useState('')
 
-    const displayInfo = () => {
-        console.log(TYPE,LEVEL,PRICE,CAPACITY,SC_RATE,DESC)
+    const [nTYPE, setnewType] = useState(type)
+    const [nLEVEL, setnewLevel] = useState(level)
+    const [nPRICE, setnewPrice] = useState(price)
+    const [nCAPACITY, setnewCapacity] = useState(capacity)
+    const [nSC_RATE, setnewRate] = useState(rate)
+    const [nDESC, setnewDesc] = useState(desc)
+
+    const [CustomerData, setData] = useState([]);
+
+    useEffect(() => {
+      const getCustomer = async () => {
+        // let temp = axios.get('http://localhost:5000/customers')
+        const response = await fetch("http://localhost:5000/customers");
+        const jsonData = await response.json(); 
+        setData(jsonData);
+      }
+      getCustomer()
+    },[])
+  
+    console.log(ID)
+    const data = useMemo(() => CustomerData);
+
+
+    const changeHandler = (value) => {
+        setValue(value);
     }
 
-    const addRoomsType = () => {
-        axios.post('http://localhost:5000/createroomstype',{
-            type: TYPE,
-            level: LEVEL,
-            price: PRICE,
-            capacity: CAPACITY,
-            rate: SC_RATE,
-            desc: DESC,
-        }).then(() => {
-            console.log("thanh cong")
-        })
+
+    const updateRoomsType = (ID) => {
+        console.log('thanh cong')
+        axios.put("http://localhost:5000/updateroomstype", {
+            id: ID,
+            type: nTYPE,
+            level: nLEVEL,
+            price: nPRICE,
+            capacity: nCAPACITY,
+            rate: nSC_RATE,
+            desc: nDESC,
+          
+        }).then(
+            (response) => {
+                alert("updated")
+            }
+        )
     }
 
-    
+    console.log(ID)
+    const deleteRoomsType = (ID) => {
+        axios.delete(`http://localhost:5000/deleteroomstype/${ID}`)
+    }
+
+    const handleSubmit = (e) => {
+        e.prevenDefault();
+    }
+
 
     return (
-        <div className="pl-24 h-[22rem]">
+        <div className="pl-24">
             <div className="translate-x-[41rem] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;
                 </a>
             </div>
-            <form className="grid grid-rows-3 grid-flow-col gap-x-2 gap-y-1 h-[14rem] -translate-x-16">
+            <form onSubmit={handleSubmit} className="grid grid-rows-3 grid-flow-col gap-x-2 gap-y-1 h-[14rem] -translate-x-16">
                 <div className="ml-8 mt-2">
                     <label htmlFor="type" className="text-sm font-medium text-gray-900 dark:text-white">Type</label>
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-12 w-[8rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         type="text"
                         name="type"
                         id="type"
+                        defaultValue={type}
                         onChange={(e) => {
-                            setType(e.target.value);
+                            setnewType(e.target.value);
                         }}
 
                     />
@@ -64,8 +96,9 @@ export default function AddRoomsType({ close }) {
                         type="text"
                         name="level"
                         id="level"
+                        defaultValue={level}
                         onChange={(e) => {
-                            setLevel(e.target.value);
+                            setnewLevel(e.target.value);
                         }}
 
                     />
@@ -76,8 +109,9 @@ export default function AddRoomsType({ close }) {
                         type="text"
                         name="description"
                         id="description"
+                        defaultValue={desc}
                         onChange={(e) => {
-                            setDesc(e.target.value);
+                            setnewDesc(e.target.value);
                         }}
                     />
                 </div>
@@ -87,8 +121,9 @@ export default function AddRoomsType({ close }) {
                         type="text"
                         name="price"
                         id="price"
+                        defaultValue={price}
                         onChange={(e) => {
-                            setPrice(e.target.value);
+                            setnewPrice(e.target.value);
                         }}
                     />
                 </div>
@@ -98,8 +133,9 @@ export default function AddRoomsType({ close }) {
                         type="text"
                         name="capactity"
                         id="capacity"
+                        defaultValue={capacity}
                         onChange={(e) => {
-                            setCapacity(e.target.value);
+                            setnewCapacity(e.target.value);
                         }}
                     />
                 </div>
@@ -109,16 +145,17 @@ export default function AddRoomsType({ close }) {
                         type="text"
                         name="surchargerate"
                         id="surchargerate"
+                        defaultValue={rate}
                         onChange={(e) => {
-                            setRate(e.target.value);
+                            setnewRate(e.target.value);
                         }}
 
                     />
                 </div>
                
                 <div className="translate-x-7 translate-y-[220px]">
-                    {/* <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg">Delete</button> */}
-                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" onClick={addRoomsType}>Save Changes</button>
+                    <button className="right-4 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg" onClick={() => {deleteRoomsType(ID)}}>Delete</button>
+                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" type="submit" onClick={() => {updateRoomsType(ID)}}>Save Changes</button>
                 </div>
             </form>
         </div>

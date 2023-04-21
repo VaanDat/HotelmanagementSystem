@@ -2,10 +2,11 @@
     margin: auto;
     background: #fff;
     padding: 5px;
-    height: 23rem;
     border: 1px solid #d7d7d7;
     border-radius: 1rem;
 }
+
+
 
 [role=tooltip].popup-content {
     width: 200px;

@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTable, useFilters } from 'react-table';
 import Table from '../../Table';
-import Popup from "reactjs-popup";
-import CustomerModal from './Modals/AddCustomerModal';
-import axios from "axios";
-import { get } from 'lodash';
 import { useMemo } from 'react';
 import { CustomerColumns } from './CustomerColumns';
 
@@ -24,23 +20,24 @@ export default function CustomerTable() {
     }
     getCustomer()
   },[])
-
-  // const getCustomer = () => {
-  //   axios.get("http://localhost:5000/customers").then((response) =>{
-  //     console.log(response.data)
-  //     // setData(response.data);
-  //   })
-  // }
-
-  // getCustomer();
+  const defaultColumn = useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: ""
+    }),
+    []
+  );
 
   const data = useMemo(() => CustomerData);
   const columns = useMemo(() => CustomerColumns);
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data, defaultColumn }, useFilters);
 
   return (
+
+
     <Table tableInstance={tableInstance} />
+
   );
 };
 

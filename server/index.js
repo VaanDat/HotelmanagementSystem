@@ -86,9 +86,10 @@ app.post('/createcustomer', (req, res) => {
     const phone = req.body.phone;
     const identity = req.body.identity;
     const country = req.body.country;
+    const address = req.body.address;
 
-    DBconnection.query('INSERT INTO customers (FULL_NAME, ROOM, GENDER, BIRTHDAY, PHONE_NUMBER, IDENTITY_NUMBER, COUNTRY) VALUES (?,?,?,?,?,?,?)',
-        [name, room, gender, birthday, phone, identity, country], (err, result) => {
+    DBconnection.query('INSERT INTO customers (FULL_NAME, ROOM, GENDER, BIRTHDAY, PHONE_NUMBER, IDENTITY_NUMBER, COUNTRY, ADDRESS) VALUES (?,?,?,?,?,?,?,?)',
+        [name, room, gender, birthday, phone, identity, country, address], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -119,9 +120,10 @@ app.put('/updatecustomers', (req, res) => {
     const phone = req.body.phone
     const identity = req.body.identity
     const country = req.body.country
+    const address = req.body.address
 
-    DBconnection.query("UPDATE customers SET FULL_NAME = ?, ROOM = ?, GENDER = ?, BIRTHDAY = ?, PHONE_NUMBER = ?, IDENTITY_NUMBER = ?, COUNTRY = ?  WHERE ID = ?", 
-    [name, room, gender,birthday,phone,identity,country,id], (err,result) => {
+    DBconnection.query("UPDATE customers SET FULL_NAME = ?, ROOM = ?, GENDER = ?, BIRTHDAY = ?, PHONE_NUMBER = ?, IDENTITY_NUMBER = ?, COUNTRY = ?, ADDRESS = ? WHERE ID = ?", 
+    [name, room, gender,birthday,phone,identity,country,address,id], (err,result) => {
         if (err){
             console.log(err)
         }
@@ -273,6 +275,42 @@ app.delete('/deleteroomstype/:id', (req,res) => {
         else{
             res.send(result);
         }
+    })
+})
+
+
+//reservations
+
+app.post('/createreservation', (req, res) => {
+    console.log(req.body)
+    const customer = req.body.customer
+    const custype = req.body.custype;
+    const identity = req.body.identity;
+    const address = req.body.address;
+    const registration = req.body.registration;
+    const arrival = req.body.arrival;
+    const departure = req.body.departure;
+
+    DBconnection.query('INSERT INTO reservations (CUSTOMER, CUSTYPE, IDENTITY, ADDRESS, REGISTRATION, ARRIVAL, DEPARTURE) VALUES (?,?,?,?,?,?,?)',
+        [customer, custype, identity, address, registration, arrival, departure], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send('value inserted')
+            }
+        }
+    );
+})
+
+app.get('/reservations', (req, res) => {
+    DBconnection.query("SELECT * FROM reservations", (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
     })
 })
 
