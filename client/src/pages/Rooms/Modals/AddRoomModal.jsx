@@ -16,7 +16,7 @@ export default function AddRoomModal({ close }) {
     }
 
     const [ROOM_NO, setRoomNo] = useState('')
-    const [TYPE, setType] = useState('')
+    const [TYPE, setType] = useState('A')
     const [IN_ROOM, setInRoom] = useState('')
     const [PRICE, setPrice] = useState('')
     const [STATUS, setStatus] = useState('')
@@ -31,8 +31,11 @@ export default function AddRoomModal({ close }) {
     // displayInfo()
 
     const addRoom = () => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
         console.log(ROOM_NO, TYPE, IN_ROOM, PRICE, STATUS, DESCRIPTION)
         axios.post('http://localhost:5000/createroom', {
+            userid: userid,
             roomno: ROOM_NO,
             type: TYPE,
             inroom: IN_ROOM,
@@ -45,15 +48,20 @@ export default function AddRoomModal({ close }) {
     }
 
     useEffect(() => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
         const getRoomsType = async () => {
-            // let temp = axios.get('http://localhost:5000/customers')
-            const response = await fetch("http://localhost:5000/roomstype");
-            const jsonData = await response.json();
-            console.log(jsonData);
-            setRTList(jsonData);
+          try{
+          const response = await fetch(`http://localhost:5000/roomstype?userId=${userid}`);
+          const jsonData = await response.json(); 
+          console.log(jsonData);
+          setRTList(jsonData);
+          } catch (error){
+            console.error("Error fetching data:", error);
+          }
         }
         getRoomsType()
-    }, [])
+      },[])
     // getRoomsType()
 
     const RTdata = useMemo(() => RoomsTypeList);

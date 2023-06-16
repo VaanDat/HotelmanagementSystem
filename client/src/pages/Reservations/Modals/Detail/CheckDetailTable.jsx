@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTable, useFilters } from 'react-table';
-import Table from '../../Table';
+import Table from '../../../../Table';
 import { useMemo } from 'react';
-import { CustomerColumns } from './CustomerColumns';
+import { CustomerColumns } from './CheckDetailColumns';
+import CheckDetailTableDesign from './CheckDetailTableDesign';
 
-
-export default function CustomerTable() {
+export default function CheckDetailTable({ID}) {
 
   
   const [CustomerData, setData] = useState([]);
@@ -15,8 +15,9 @@ export default function CustomerTable() {
       // let temp = axios.get('http://localhost:5000/customers')
       let user = JSON.parse(localStorage.getItem("userAuth"))
       let userid = user.ID;
+      let rid = ID;
       try{
-      const response = await fetch(`http://localhost:5000/customers?userId=${userid}`);
+      const response = await fetch(`http://localhost:5000/reservationdetail?ReservationId=${rid}`);
       const jsonData = await response.json(); 
       console.log(jsonData);
       setData(jsonData);
@@ -34,16 +35,15 @@ export default function CustomerTable() {
     []
   );
 
+
+
   const data = useMemo(() => CustomerData);
   const columns = useMemo(() => CustomerColumns);
 
   const tableInstance = useTable({ columns, data, defaultColumn }, useFilters);
 
   return (
-
-
-    <Table tableInstance={tableInstance} />
-
+    <CheckDetailTableDesign tableInstance={tableInstance}/>
   );
 };
 

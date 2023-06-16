@@ -12,10 +12,14 @@ export default function LoginPage() {
         console.log(info)
         await Axios.post('http://localhost:5000/login', info)
         .then((res) =>{
-            console.log(res.data)
-            let data = JSON.stringify(res.data[0])
-            localStorage.setItem('userAuth', data)
-            window.location.href = '/admin'
+            if(res.data[0]){
+                let data = JSON.stringify(res.data[0])
+                localStorage.setItem('userAuth', data)
+                window.location.href = '/admin'
+            }
+            else {
+                //notify sai ngu
+            }
         })
     }   
     return (

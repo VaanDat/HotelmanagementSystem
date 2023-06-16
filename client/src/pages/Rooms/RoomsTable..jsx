@@ -8,18 +8,21 @@ import { RoomsColumns } from './RoomsColumns';
 
 const RoomsTable = () => {
   const [RoomData, setData] = useState([]);
-
+  const userid = (JSON.parse(localStorage.getItem("userAuth"))).ID
   useEffect(() => {
     const getRoom = async () => {
-      // let temp = axios.get('http://localhost:5000/customers')
-      const response = await fetch("http://localhost:5000/rooms");
-      const jsonData = await response.json(); 
-      console.log(jsonData);
-      setData(jsonData);
-    }
-    getRoom()
-  },[])
-
+      try {
+        const response = await fetch(`http://localhost:5000/rooms?userId=${userid}`); // Replace 123 with the actual userId
+        const jsonData = await response.json();
+        console.log(jsonData);
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    getRoom();
+  }, []);
   const data = useMemo(() => RoomData);
   const columns = useMemo(() => RoomsColumns);
 

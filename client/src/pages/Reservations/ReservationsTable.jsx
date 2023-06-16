@@ -2,35 +2,34 @@ import { useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 import Table from '../../Table';
 import { useMemo } from 'react';
-import { ReservationsColumns } from './ReservationsColumns';
+import {ReservationsColumns} from './ReservationsColumns';
 
+export default function ReservationsTable({refresh}) {
 
-export default function ReservationsTable() {
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
+  const [ReservationData, setData] = useState([]);
 
-  
-  const [RoomsTypeData, setData] = useState([]);
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   useEffect(() => {
-    const getRoomsType = async () => {
+    const getReservations = async () => {
       // let temp = axios.get('http://localhost:5000/customers')
       const response = await fetch("http://localhost:5000/reservations");
       const jsonData = await response.json(); 
       console.log(jsonData);
       setData(jsonData);
     }
-    getRoomsType()
-  },[])
+    getReservations()
+  },[refresh])
 
-  // const getCustomer = () => {
-  //   axios.get("http://localhost:5000/customers").then((response) =>{
-  //     console.log(response.data)
-  //     // setData(response.data);
-  //   })
-  // }
-
-  // getCustomer();
-
-  const data = useMemo(() => RoomsTypeData);
+  const data = useMemo(() => ReservationData);
   const columns = useMemo(() => ReservationsColumns);
 
   const tableInstance = useTable({ columns, data });
@@ -40,6 +39,3 @@ export default function ReservationsTable() {
   );
 };
 
-
-
-{/* <Modal data={row.original} updateData={setData} />  */ }

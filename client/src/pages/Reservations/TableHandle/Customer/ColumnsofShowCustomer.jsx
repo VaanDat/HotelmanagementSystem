@@ -1,4 +1,4 @@
-import { TextSearchFilter } from '../../../components/TextSearchFilter';
+import { TextSearchFilter } from '../../../../components/TextSearchFilter';
 
 export const ColumnsofShowCustomer = ({ onClose }) => [
   { Header: 'ID', accessor: (row, index) => index + 1 },

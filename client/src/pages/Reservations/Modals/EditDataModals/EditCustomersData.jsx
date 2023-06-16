@@ -4,9 +4,9 @@ import CustomerTable from '../../../Customers/CustomersTable'
 import ShowCustomerTable from "../../TableHandle/Customer/ShowCustomerTable";
 import { useEffect, useState } from 'react';
 
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
-export default function ChooseCustomer({ isOpen, onClose, onSaveChanges }) {
+export default function EditCustomersData({ isOpen, onClose, onSaveChanges }) {
   const [cusDeliver, setCusDeliver] = useState([]);
   const handleCloseModal = () => {
     onClose();
@@ -48,7 +48,7 @@ export default function ChooseCustomer({ isOpen, onClose, onSaveChanges }) {
 
 
   return (
-   <Modal isOpen={isOpen} onRequestClose={handleCloseModal} style={customStyles}>
+   <div isOpen={isOpen} onRequestClose={handleCloseModal} style={customStyles}>
       <div className="close cursor-pointer translate-x-[75rem] text-2xl -translate-y-2 fixed" onClick={handleCloseModal}>
                     &times;
                 </div>
@@ -56,6 +56,6 @@ export default function ChooseCustomer({ isOpen, onClose, onSaveChanges }) {
         <ShowCustomerTable onClose={handleCloseModal} handleSelect={setObj}/>
     </div>
       {/* <button onClick={handleSaveChanges}>Save Changes</button> */}
-    </Modal>
+    </div>
     )
   }

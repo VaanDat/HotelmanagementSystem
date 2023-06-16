@@ -1,8 +1,10 @@
 import "../../../css/localpopup.css"
 import "../../../css/localpopupbasic.css"
-import DatePicker from "react-datepicker";
+import DatePicker from "react-date-picker";
 import { useState, useMemo, useEffect } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 import axios from "axios";
@@ -10,10 +12,9 @@ import axios from "axios";
 export default function CustomerModal({ close }) {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState('')
-    const options = useMemo(() => countryList().getData(), [])
-    
-    const [FULL_NAME, setFullName] = useState('')
-    const [ROOM, setRoom] = useState('')
+    const options = useMemo(() => countryList().getData(), []);
+    const [FULL_NAME, setFullName] = useState('');
+    const [ROOM, setRoom] = useState('');
     const [GENDER, setGender] = useState('male')
     const [BIRTHDAY, setBirthday] = useState('')
     const [PHONE_NUMBER, setPhone] = useState('')
@@ -32,9 +33,14 @@ export default function CustomerModal({ close }) {
         console.log(FULL_NAME,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY,ADDRESS)
     }
 
+
+
     const addCustomer = () => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
         console.log(FULL_NAME,ROOM,GENDER,BIRTHDAY,PHONE_NUMBER,IDENTITY_NUMBER,COUNTRY,ADDRESS)
         axios.post('http://localhost:5000/createcustomer',{
+            userid: userid,
             name: FULL_NAME,
             room: ROOM,
             gender: GENDER,
@@ -48,7 +54,7 @@ export default function CustomerModal({ close }) {
         })
     }
 
-    
+     
     
 
     return (
@@ -84,7 +90,7 @@ export default function CustomerModal({ close }) {
                 </div>
                 <div className="ml-8 mt-1 flex">
                     <label htmlFor="birthday" className="mb-2 mt-1 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
-                    <DatePicker id="birthday" dateFormat="dd/MM/yyyy" value={BIRTHDAY} className="ml-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " selected={startDate} onChange={(date) => {
+                    <DatePicker id="birthday" format="dd-MM-y" selected={startDate} value={BIRTHDAY} className="ml-12 w-[8rem] h-[2.3rem]" onChange={(date) => {
                         const dateString = new Date(date).toLocaleDateString()
                         setStartDate(date);
                         setBirthday(dateString)

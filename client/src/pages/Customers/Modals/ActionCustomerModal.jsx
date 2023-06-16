@@ -1,6 +1,6 @@
 import "../../../css/localpopup.css"
 import "../../../css/localpopupbasic.css"
-import DatePicker from "react-datepicker";
+import DatePicker from "react-date-picker";
 import { useState, useMemo, useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select'
@@ -108,7 +108,7 @@ export default function ActionCustomerModal({ close, ID, name, room,  gender, bi
                 </div>
                 <div className="ml-8 mt-1 flex">
                     <label htmlFor="birthday" className="mb-2 mt-1 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
-                    <DatePicker id="birthday" dateFormat="dd/MM/yyyy" value={nBIRTHDAY} className="ml-12  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " selected={startDate} onChange={(date) => {
+                    <DatePicker id="birthday" format="dd-MM-y" value={nBIRTHDAY} className="ml-12 w-[8rem] h-[2.3rem]" selected={startDate} onChange={(date) => {
                         const dateString = new Date(date).toLocaleDateString()
                         setStartDate(date);
                         setnewBirthday(dateString)

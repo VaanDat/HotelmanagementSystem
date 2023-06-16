@@ -11,6 +11,9 @@ import Revenue from "../Revenue";
 import RoomsType from "./RoomsType/RoomsType";
 import { useNavigate, useLocation } from "react-router-dom";
 import '../css/RoomsTypebg.css'
+import ErrorBoundary from "../ErrorBoundary";
+// import RoomshaveReservations from "./Reservations/RoomshaveReservations/RoomshaveReservations"
+
 
 export default function AdminPage() {
     const navigate = useNavigate();
@@ -37,7 +40,11 @@ export default function AdminPage() {
             <div className="main-content">
 
                 {activeComponent === 'dashboard' && <Dashboard />}
-                {activeComponent === 'reservations' && <Reservations />}
+                {activeComponent === 'reservations' && 
+          
+                <Reservations/>
+            
+                }
                 {activeComponent === 'rooms' && <Rooms />}
                 {activeComponent === 'rentalreceipt' && <RentalReceipt /> }
                 {activeComponent === 'customers' && <Customers />}

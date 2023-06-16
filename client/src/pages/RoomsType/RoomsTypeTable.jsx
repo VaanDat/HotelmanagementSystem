@@ -11,12 +11,17 @@ export default function RoomsTypeTable() {
   const [RoomsTypeData, setData] = useState([]);
 
   useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("userAuth"))
+    let userid = user.ID;
     const getRoomsType = async () => {
-      // let temp = axios.get('http://localhost:5000/customers')
-      const response = await fetch("http://localhost:5000/roomstype");
+      try{
+      const response = await fetch(`http://localhost:5000/roomstype?userId=${userid}`);
       const jsonData = await response.json(); 
       console.log(jsonData);
       setData(jsonData);
+      } catch (error){
+        console.error("Error fetching data:", error);
+      }
     }
     getRoomsType()
   },[])

@@ -24,7 +24,10 @@ export default function AddRoomsType({ close }) {
     }
 
     const addRoomsType = () => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
         axios.post('http://localhost:5000/createroomstype',{
+            userid: userid,
             type: TYPE,
             level: LEVEL,
             price: PRICE,

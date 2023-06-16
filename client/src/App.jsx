@@ -12,7 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import CustomerTable from "./pages/Customers/CustomersTable"
 import { useLocation } from 'react-router-dom';
-
+import { ModalProvider } from './ModalContext';
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
 
   return (
 
-
+      <ModalProvider>
       <Routes>
         <Route path="/" element={<Layout />}/>
         <Route index element={<IndexPage />} />
@@ -49,8 +49,7 @@ function App() {
         <Route path="/admin/revenue" element={<AdminPage/>} />
         <Route path="/admin/roomstype" element={<AdminPage/>} />
       </Routes>
-   
-
+      </ModalProvider>  
 
 
 
