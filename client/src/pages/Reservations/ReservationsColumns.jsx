@@ -13,7 +13,7 @@ export const ReservationsColumns = [
     { Header: 'Room', accessor: 'ROOM' },
     { 
     Header: 'Details', Cell: ({ row }) => <Popup modal trigger={<button className="p-2 bg-[#60a5fa] text-white rounded-lg">Check</button>}>
-    {close => <CheckDetail close={close} ID={row.original.ID}
+    {close => <CheckDetail close={close} ID={row.original.ID} PAYCUS={row.original.PAYCUSID}
     />}
   </Popup> },
     { Header: 'Type', accessor: 'ROOM_TYPE'},
@@ -21,7 +21,7 @@ export const ReservationsColumns = [
     { Header: 'Arrival', accessor: 'ARRIVAL' },
     { Header: 'Departure', accessor: 'DEPARTURE' },
     { Header: 'Price', accessor: 'PRICE' },
-    { Header: 'Status', Cell: ({row}) => <UpdateStatus ID={row.original.ID} STATUS={row.original.STATUS}></UpdateStatus>
+    { Header: 'Status', Cell: ({row}) => <UpdateStatus ID={row.original.ID} STATUS={row.original.STATUS} DEPARTURE={row.original.DEPARTURE}></UpdateStatus>
     },
     {
       Header: 'Action', Cell: ({ row }) => <Popup nested modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>

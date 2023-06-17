@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from "react";
+import Popup from "reactjs-popup";
 import axios from "axios";
+import ChoosePayCus from "./ChoosePayCus/ChoosePayCus";
 
-export default function UpdateStatus({ ID, STATUS }) {
+
+export default function UpdateStatus({ ID, STATUS, DEPARTURE }) {
   const [status, setStatus] = useState(STATUS);
+  const [openModal, setOpenModal] = useState(false);
   const hotelstatus = ["Confirmed", "Pending", "Cancelled", "Checked In", "Checked Out"];
+  const statusColors = {
+    "Confirmed": "bg-[#3d70b2]",
+    "Pending": "bg-green-500",
+    "Cancelled": "bg-[#fe5f55]",
+    "Checked In": "bg-blue-500",
+    "Checked Out": "bg-[#cbac88]",
+  };
+  const [optioncolor, setOptionColor] = useState(statusColors[STATUS]);
 
   useEffect(() => {
     updateStatus(ID);
+    setOptionColor(statusColors[status]);
+ 
   }, [status, ID]);
+
+  const handleCloseModal1 = () => {
+    setOpenModal(false);
+};
 
   const updateStatus = async (ID) => {
     try {
@@ -20,20 +38,27 @@ export default function UpdateStatus({ ID, STATUS }) {
       console.log(error);
     }
   };
-
-  console.log(status);
+ 
+  const handleChoosePayCus = (data) => {
+    if (data === "Confirmed"){
+      setOpenModal(true);
+   }
+  }
 
   return (
-    <select
-      className="w-[6rem] p-1 text-xs bg-[#10b981] text-white rounded-xl border-2"
-      value={status}
-      onChange={(e) => setStatus(e.target.value)}
-    >
-      {hotelstatus.map((value, key) => (
-        <option value={value} key={key}>
-          {value}
-        </option>
-      ))}
-    </select>
+ <div>
+     <select
+       className={`w-[6rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
+       value={status}
+       onChange={(e) => (setStatus(e.target.value), handleChoosePayCus(e.target.value))}
+     >
+       {hotelstatus.map((value, key) => (
+         <option value={value} key={key}>
+           {value}
+         </option>
+       ))}
+     </select>
+     <ChoosePayCus ID={ID} isOpen={openModal} onClose={handleCloseModal1}/>
+ </div>
   );
 }

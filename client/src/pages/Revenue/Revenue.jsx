@@ -1,8 +1,8 @@
 import { useState } from "react";
 import moment from 'moment';
-import ReceiptList from "./receiptlist/ReceiptList";
+import RevenueList from "./RevenueList/RevenueList";
 
-export default function RentalReceipt() {
+export default function Revenue() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [openReceiptList, setOpenReceiptList] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -68,9 +68,11 @@ export default function RentalReceipt() {
     <div className="list relative">
       <div className="relative">
         <div className="relative top-[120px] -left-[80px] font-neon">
-    
-            <ReceiptList deliverstate={setdeliverstate} month={selectedMonth} year={selectedYear} />
-   
+          {!openReceiptList ? (
+            <div>{renderMonthCards()}</div>
+          ) : (
+            <RevenueList deliverstate={setdeliverstate} month={selectedMonth} year={selectedYear} />
+          )}
         </div>
       </div>
     </div>

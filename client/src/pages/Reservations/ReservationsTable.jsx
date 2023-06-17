@@ -19,9 +19,11 @@ export default function ReservationsTable({refresh}) {
   }
 
   useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("userAuth"))
+    let userid = user.ID;
     const getReservations = async () => {
       // let temp = axios.get('http://localhost:5000/customers')
-      const response = await fetch("http://localhost:5000/reservations");
+      const response = await fetch(`http://localhost:5000/reservations?userid=${userid}`);
       const jsonData = await response.json(); 
       console.log(jsonData);
       setData(jsonData);

@@ -305,12 +305,14 @@ app.post('/createreservation', (req, res) => {
     const roomtype = req.body.roomtype;
     const arrival = req.body.arrival;
     const departure = req.body.departure;
+    const month = req.body.month;
+    const year = req.body.year;
     const regisdate = req.body.regisdate;
     const price = req.body.price;
     const status = "Pending";
     
-    DBconnection.query('INSERT INTO reservations (USERID, ROOMID, ROOM, ROOM_TYPE, REGISDATE, ARRIVAL, DEPARTURE, PRICE, STATUS) VALUES (?,?,?,?,?,?,?,?,?)',
-        [userid, roomid, room, roomtype, regisdate, arrival, departure, price, status], (err, result) => {
+    DBconnection.query('INSERT INTO reservations (USERID, ROOMID, ROOM, ROOM_TYPE, REGISDATE, ARRIVAL, DEPARTURE, MONTH, YEAR, PRICE, STATUS) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+        [userid, roomid, room, roomtype, regisdate, arrival, departure, month, year, price, status], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -342,6 +344,22 @@ app.put('/updatereservation', (req, res) => {
         }
     })
 })
+
+app.put('/updatepaycus', (req, res) => {
+    const paycusid = req.body.paycusid;
+    const id = req.body.id;
+    DBconnection.query("UPDATE reservations SET PAYCUSID = ? WHERE ID = ?", 
+    [paycusid, id], (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
+
 
 
 app.delete('/deletereservationdetail/:id', (req,res) => {
@@ -381,7 +399,7 @@ app.put('/updatereservationdetail', (req, res) => {
     const identity = req.body.identity;
     const birthday = req.body.birthday;
 
-    DBconnection.query("UPDATE reservation_detail SET USERID = ?, CID = ?, FULL_NAME = ?, TYPE = ?, IDENTITY = ?, BIRTHDAY = ? WHERE RID = ?", 
+    DBconnection.query("UPDATE reservation_detail SET USERID = ?, CID = ?, FULL_NAME = ?, TYPE = ?, IDENTITY = ?, BIRTHDAY = ? WHERE RID = ?",  
     [userid, customerid, fullname, custype, identity, birthday, reserid], (err,result) => {
         if (err){
             console.log(err)
@@ -395,7 +413,10 @@ app.put('/updatereservationdetail', (req, res) => {
 
 
 app.get('/reservations', (req, res) => {
-    DBconnection.query("SELECT * FROM reservations", (err, result) => {
+    const userid = req.query.userid;
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ?",
+    [userid],
+    (err, result) => {
         if (err) {
             console.log(err)
         }
@@ -446,9 +467,11 @@ app.post('/createreservationdetail', (req, res) => {
     const custype = req.body.custype;
     const identity = req.body.identity;
     const birthday = req.body.birthday
+    const paycusid = req.body.paycusid;
+    const address = req.body.address
     
-    DBconnection.query('INSERT INTO reservation_detail (USERID, RID, CID, FULL_NAME, TYPE, IDENTITY, BIRTHDAY) VALUES (?,?,?,?,?,?,?)',
-        [userid, reserID, customerid, fullname, custype, identity, birthday], (err, result) => {
+    DBconnection.query('INSERT INTO reservation_detail (USERID, RID, CID, FULL_NAME, TYPE, IDENTITY, ADDRESS, BIRTHDAY) VALUES (?,?,?,?,?,?,?,?)',
+        [userid, reserID, customerid, fullname, custype, identity, address, birthday], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -475,6 +498,78 @@ app.get('/reservationdetail', (req, res) => {
 
     })
 })
+
+
+// app.get('/rentalreceipt', (req, res) => {
+//     const userid = req.query.userid;
+//     const status = "Confirmed"
+//     DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS = ?",
+//     [userid, status],
+//     (err, result) => {
+//         if (err) {
+//             console.log(err)
+//             res.status(500).send('Error retrieving data');
+//         }
+//         else {
+//             res.send(result)
+//         }
+
+//     })
+// })
+
+app.get('/rentalreceipt', (req, res) => {
+    const userid = req.query.userid;
+    const status = "Confirmed"
+    DBconnection.query("SELECT * FROM rental_receipt WHERE USERID = ?",
+    [userid, status],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.post('/addreceiptcus', (req, res) => {
+    console.log(req.body)
+    const userid = req.body.userid;
+    const paycusid = req.body.paycusid;
+    const address = req.body.address;
+    
+    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, ADDRESS) VALUES (?,?,?)',
+        [userid, paycusid, address], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                 // Retrieve the generated Reservation ID
+                res.send(result); // Include the Reservation ID in the response
+            }
+        }
+    );
+})
+
+// app.get('/roomstype', (req, res) => {
+//     const userId = req.query.userId;
+//     DBconnection.query("SELECT * FROM rooms_type WHERE USERID = ?",
+//     [userId],
+//     (err, result) => {
+//         if (err) {
+//             console.log(err)
+//             res.status(500).send('Error retrieving data');
+//         }
+//         else {
+//             res.send(result)
+//         }
+
+//     })
+// })
+
+
+
 
 
 

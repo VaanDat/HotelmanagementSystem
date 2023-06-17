@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import RentalReceipt from "./RentalReceipt/RentalReceipt";
 import Customers from "./Customers/Customers";
 import Staffs from "../Staffs";
-import Revenue from "../Revenue";
+import Revenue from "./Revenue/Revenue";
 import RoomsType from "./RoomsType/RoomsType";
 import { useNavigate, useLocation } from "react-router-dom";
 import '../css/RoomsTypebg.css'

@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { CustomerColumns } from './CheckDetailColumns';
 import CheckDetailTableDesign from './CheckDetailTableDesign';
 
-export default function CheckDetailTable({ID}) {
+export default function CheckDetailTable({ID, PAYCUS}) {
 
   
   const [CustomerData, setData] = useState([]);
@@ -43,7 +43,7 @@ export default function CheckDetailTable({ID}) {
   const tableInstance = useTable({ columns, data, defaultColumn }, useFilters);
 
   return (
-    <CheckDetailTableDesign tableInstance={tableInstance}/>
+    <CheckDetailTableDesign tableInstance={tableInstance} paycusid={PAYCUS}/>
   );
 };
 
