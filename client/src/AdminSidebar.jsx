@@ -11,15 +11,9 @@ import Staffsimg from "./assets/staffs.png";
 import Logoimg from "./assets/logo.png";
 import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
-<<<<<<< HEAD
-import ReactDOM from "react-dom/client";
+
 import "./css/RoomsTypebg.css";
 import "./css/Active.css";
-=======
-import ReactDOM from 'react-dom/client';
-import './css/RoomsTypebg.css'
-// import './css/active.css'
->>>>>>> 24690122197a06ddd095d5ecd06c9395ce89feb0
 
 export default function AdminSidebar({ onClick }) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
@@ -83,11 +77,7 @@ export default function AdminSidebar({ onClick }) {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-<<<<<<< HEAD
               className={`flex  rounded-md p-2 cursor-pointer  hover:bg-gray-500 text-gray-300 text-sm items-center gap-x-4 
-=======
-              className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white hover:bg-blue-300 text-gray-300 text-sm items-center gap-x-4 
->>>>>>> 24690122197a06ddd095d5ecd06c9395ce89feb0
               ${Menu.gap ? "mt-9" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } ${activeItem === `${Menu.component}` ? "active" : ""}`}
