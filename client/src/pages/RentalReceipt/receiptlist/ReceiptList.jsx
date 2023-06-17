@@ -41,8 +41,8 @@ export default function ReceiptList({deliverstate, month, year}) {
     const tableInstance = useTable({ columns, data });
 
     return (
-        <div className=''>
-            <div onClick={()=>deliverstate(false)}>back</div>
+        <div className='translate-y-[100px]'>
+            {/* <div onClick={()=>deliverstate(false)}>back</div> */}
             <Table tableInstance={tableInstance} />
         </div>
     );

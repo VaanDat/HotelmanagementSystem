@@ -310,9 +310,10 @@ app.post('/createreservation', (req, res) => {
     const regisdate = req.body.regisdate;
     const price = req.body.price;
     const status = "Pending";
+    const dayprice = req.body.dayprice;
     
-    DBconnection.query('INSERT INTO reservations (USERID, ROOMID, ROOM, ROOM_TYPE, REGISDATE, ARRIVAL, DEPARTURE, MONTH, YEAR, PRICE, STATUS) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-        [userid, roomid, room, roomtype, regisdate, arrival, departure, month, year, price, status], (err, result) => {
+    DBconnection.query('INSERT INTO reservations (USERID, ROOMID, ROOM, ROOM_TYPE, REGISDATE, ARRIVAL, DEPARTURE, MONTH, YEAR, PRICE, DAYPRICE, STATUS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+        [userid, roomid, room, roomtype, regisdate, arrival, departure, month, year, price, dayprice, status], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -537,11 +538,15 @@ app.get('/rentalreceipt', (req, res) => {
 app.post('/addreceiptcus', (req, res) => {
     console.log(req.body)
     const userid = req.body.userid;
+    const rid = req.body.rid;
     const paycusid = req.body.paycusid;
     const address = req.body.address;
+    const name = req.body.name;
+    const printday = req.body.printday;
+    const price = req.body.price;
     
-    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, ADDRESS) VALUES (?,?,?)',
-        [userid, paycusid, address], (err, result) => {
+    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, RID, FULL_NAME, ADDRESS, PRINTDAY, PRICE) VALUES (?,?,?,?,?,?,?)',
+        [userid, paycusid, rid, name, address, printday, price], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -551,6 +556,26 @@ app.post('/addreceiptcus', (req, res) => {
         }
     );
 })
+
+app.get('/receiptdetail', (req, res) => {
+    const userid = req.query.userid;
+    const cid = req.query.cid;
+    const status = "Confirmed";
+    DBconnection.query("SELECT * FROM reservations WHERE PAYCUSID = ? AND USERID = ?",
+    [cid, userid,],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+
 
 // app.get('/roomstype', (req, res) => {
 //     const userId = req.query.userId;

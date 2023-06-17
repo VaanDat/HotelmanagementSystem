@@ -20,8 +20,20 @@ export const ReservationsColumns = [
     { Header: 'RegisDate', accessor: 'REGISDATE' },
     { Header: 'Arrival', accessor: 'ARRIVAL' },
     { Header: 'Departure', accessor: 'DEPARTURE' },
-    { Header: 'Price', accessor: 'PRICE' },
-    { Header: 'Status', Cell: ({row}) => <UpdateStatus ID={row.original.ID} STATUS={row.original.STATUS} DEPARTURE={row.original.DEPARTURE}></UpdateStatus>
+    { Header: 'Price', accessor: 'PRICE', Cell: ({ value }) => (
+      <div>
+        {value.toLocaleString(undefined, {
+        })}
+      </div>
+    ), },
+    { Header: 'Status', Cell: ({row}) => 
+    <UpdateStatus 
+    ID={row.original.ID} 
+    STATUS={row.original.STATUS} 
+    DEPARTURE={row.original.DEPARTURE}
+    ROWDATA={row.original}
+
+    ></UpdateStatus>
     },
     {
       Header: 'Action', Cell: ({ row }) => <Popup nested modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>
