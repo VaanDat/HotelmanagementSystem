@@ -13,6 +13,7 @@ import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
 import ReactDOM from 'react-dom/client';
 import './css/RoomsTypebg.css'
+// import './css/active.css'
 
 export default function AdminSidebar({onClick}) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
@@ -73,7 +74,7 @@ export default function AdminSidebar({onClick}) {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white hover:bg-blue-300 text-gray-300 text-sm items-center gap-x-4 
+              className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white hover:bg-blue-300 text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } ${activeItem === `${Menu.component}` ? 'active' : ''}`} onClick={() =>{ 

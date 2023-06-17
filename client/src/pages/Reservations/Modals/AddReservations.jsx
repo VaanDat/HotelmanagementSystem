@@ -3,6 +3,7 @@ import '../../../css/AddReservation.css'
 import DatePicker from "react-date-picker";
 import Modal from 'react-modal';
 import 'react-date-picker/dist/DatePicker.css';
+import { format, parse } from 'date-fns';
 import axios from "axios";
 import { set } from "lodash";
 
@@ -135,6 +136,9 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
   let user = JSON.parse(localStorage.getItem("userAuth"))
   let userid = user.ID;
   const AddReservations = async () => {
+    const date = parse(departure, 'M/d/yyyy', new Date());
+    const month = format(date, 'M');
+    const year = format(date, 'yyyy');
     try {
       const response = await axios.post('http://localhost:5000/createreservation', {
         userid: userid,
@@ -144,6 +148,8 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
         regisdate: regis,
         arrival: arrival,
         departure: departure,
+        month: month,
+        year: year,
         price: price,
       });
       console.log("thanh cong");
@@ -167,6 +173,7 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
           custype: customer.COUNTRY,
           identity: customer.IDENTITY_NUMBER,
           birthday: customer.BIRTHDAY,
+          address: customer.ADDRESS,
         });
       }
       console.log("Data posted successfully");

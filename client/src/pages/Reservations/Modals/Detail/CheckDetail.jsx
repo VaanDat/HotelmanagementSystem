@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CheckDetailTable from "./CheckDetailTable";
 
 
-export default function CheckDetail({ close, ID }) {
+export default function CheckDetail({ close, ID, PAYCUS }) {
     
     
 
@@ -26,7 +26,7 @@ export default function CheckDetail({ close, ID }) {
             </div>
             <form onSubmit={handleSubmit} className="grid grid-rows-3 grid-flow-col gap-x-2 gap-y-1 h-[14rem] -translate-x-16">
                
-            <CheckDetailTable ID={ID}/>
+            <CheckDetailTable ID={ID} PAYCUS={PAYCUS}/>
                 <div className="translate-y-16 translate-x-[-1rem]">
                 
                     {/* <button className="right-0 bottom-0 absolute bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" type="submit" 

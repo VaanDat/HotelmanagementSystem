@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
-const CheckDetailTableDesign = ({ tableInstance, handleSelect, makeSelectableRows }) => {
+const CheckDetailTableDesign = ({ tableInstance, handleSelect, makeSelectableRows, paycusid }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } = tableInstance;
-
 
   return (
     <div className='py-4'>
@@ -20,7 +19,7 @@ const CheckDetailTableDesign = ({ tableInstance, handleSelect, makeSelectableRow
                   )}
                 >
                   {column.render('Header')}
-                  <div className='absolute translate-y-[-4rem] w-[4rem]' >
+                  <div className='absolute translate-y-[-4rem] w-[4rem]'>
                     {column.canFilter ? column.render("Filter") : null}
                   </div>
                 </th>
@@ -31,10 +30,14 @@ const CheckDetailTableDesign = ({ tableInstance, handleSelect, makeSelectableRow
         <tbody {...getTableBodyProps()}>
           {rows.map(row => {
             prepareRow(row);
+            const isHighlighted = row.original.CID === paycusid; // Compare CID with paycusid
+
             return (
               <tr
                 {...row.getRowProps()}
-                className="border-t border-gray-200"
+                className={classNames("border-t border-gray-200", {
+                  "bg-green-200": isHighlighted, // Apply green background if CID matches paycusid
+                })}
               >
                 {row.cells.map(cell => (
                   <td
@@ -52,7 +55,6 @@ const CheckDetailTableDesign = ({ tableInstance, handleSelect, makeSelectableRow
           })}
         </tbody>
       </table>
-
     </div>
   );
 };
