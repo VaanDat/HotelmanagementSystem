@@ -21,8 +21,10 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
   const [departure, setDeparture] = useState('')
   const [numOfDays, setNumOfDays] = useState(0);
   const [regis, setRegis] = useState('');
+  const [regisauto, setRegisAuto] = useState('');
   const [price, setPrice] = useState(0);
   const [phuthu, setPhuthu] = useState([]);
+
   // const [cusList, setCusList] = useState([]);
 
   const handleCloseModal = () => {
@@ -104,7 +106,7 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
 
     if (room && customers) {
       const hasNonVietnameseCustomer = customers.some(
-        (customer) => customer.country !== "Viet Nam"
+        (customer) => customer.COUNTRY !== "Viet Nam"
       );
       if (customers.length <= 2) {
         if (hasNonVietnameseCustomer) {
@@ -116,10 +118,10 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
       }
       else {
         if (hasNonVietnameseCustomer) {
-          setPrice(room.PRICE * numOfDays * (phuthu / 100) * 1.5)
+          setPrice(room.PRICE * numOfDays * (phuthu / 100 + 1) * 1.5)
         }
         else {
-          setPrice(room.PRICE * numOfDays * (phuthu / 100)) 
+          setPrice(room.PRICE * numOfDays * (phuthu / 100 + 1)) 
         }
         
       }
@@ -151,6 +153,7 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
         month: month,
         year: year,
         price: price,
+        dayprice : room.PRICE,
       });
       console.log("thanh cong");
       const reservationID = response.data.insertId;
@@ -212,6 +215,7 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
               <DatePicker id="arrival" format="dd-MM-y" selected={regis} value={regis} className="bg-white w-[8rem] ml-8 h-[2.3rem]" onChange={(date) => {
                 const dateString = new Date(date).toLocaleDateString()
                 setStartDate(date);
+                setRegisAuto(date)
                 setRegis(dateString)
               }} />
             </div>
@@ -233,7 +237,7 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
               <div className="flex mt-6">
                 <div className="ml-8 flex flex-col">
                   <div htmlFor="arrival" className="mb-2 mt-1 text-sm font-medium text-gray-900 dark:text-white">Arrival</div>
-                  <DatePicker id="arrival" format="dd-MM-y" selected={startDate} value={arrival} className="bg-white w-[8rem] h-[2.3rem]" onChange={(date) => {
+                  <DatePicker id="arrival" format="dd-MM-y" selected={startDate} minDate={regisauto} value={arrival} className="bg-white w-[8rem] h-[2.3rem]" onChange={(date) => {
                     const dateString = new Date(date).toLocaleDateString()
                     setStartDate(date);
                     setArrival(dateString)

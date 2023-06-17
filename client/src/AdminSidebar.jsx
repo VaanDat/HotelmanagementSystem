@@ -11,7 +11,6 @@ import Staffsimg from "./assets/staffs.png";
 import Logoimg from "./assets/logo.png";
 import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
-
 import "./css/RoomsTypebg.css";
 import "./css/Active.css";
 
@@ -98,7 +97,8 @@ export default function AdminSidebar({ onClick }) {
           ))}
         </ul>
       </div>
-      <div className="h-screen flex-1 p-14">
+      <div className="h-screen flex-1 p-7">
+        <h1 className="text-2xl font-semibold">{activeItem}</h1>
         <div id="render-item"></div>
       </div>
     </div>

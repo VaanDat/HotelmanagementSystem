@@ -6,7 +6,7 @@ import ChoosePayCusTableDesign from './ChoosePayCusTableDesign';
 import axios from "axios";
 
 
-export default function ChoosePayCusTable({ ID, onClose, handleSelect }) {
+export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }) {
   const [cusDeliver, setCusDeliver] = useState([]);
   const [PickData, setPickData] = useState()
   const maxCus = 3;
@@ -31,7 +31,6 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect }) {
     axios.put("http://localhost:5000/updatepaycus", {
       id: id,
       paycusid: paycusid,
-
     }).then(
 
       (response) => {
@@ -66,13 +65,21 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect }) {
     const address = data.ADDRESS
     let user = JSON.parse(localStorage.getItem('userAuth'));
     let userid = user.ID;
+    let name = data.FULL_NAME
+    let price = ROWDATA.PRICE
+    let printday = ROWDATA.DEPARTURE
     try {
       const response = await axios.post('http://localhost:5000/addreceiptcus', {
         userid : userid,
+        rid: id,
         paycusid : paycusid,
         address : address,
+        name: name,
+        price: price,
+        printday: printday,
       });
       console.log("thanh cong post len receipt");
+      window.location.reload()
       // const reservationID = response.data.insertId;
       // AddReservationsDetail(reservationID);
     } catch (error) {

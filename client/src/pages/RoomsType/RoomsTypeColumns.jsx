@@ -5,7 +5,12 @@ import ActionRoomsType from "./Modals/ActionRoomsType";
 export const RoomsTypeColumns = [
     { Header: 'Type', accessor: 'TYPE'},
     { Header: 'Level', accessor: 'LEVEL'},
-    { Header: 'Price', accessor: 'PRICE'},
+    { Header: 'Price', accessor: 'PRICE', Cell: ({ value }) => (
+      <div>
+        {value.toLocaleString(undefined, {
+        })}
+      </div>
+    ),},
     { Header: 'Capacity', accessor: 'CAPACITY' },
     { Header: 'Surchage Rate', accessor: 'SC_RATE' },
     { Header: 'Description', accessor: 'DESCRIPTION' },

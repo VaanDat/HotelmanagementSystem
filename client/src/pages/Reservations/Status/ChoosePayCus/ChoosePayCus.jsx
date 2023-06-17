@@ -6,7 +6,7 @@ import ChoosePayCusTable from "./ChoosePayCusTable";
 
 Modal.setAppElement('#root');
 
-export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges }) {
+export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROWDATA }) {
   const [cusDeliver, setCusDeliver] = useState([]);
   const handleCloseModal = () => {
     onClose();
@@ -54,7 +54,7 @@ export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges }) {
                 </div>
     <div className="font-neon text-xl translate-x-[14rem] absolute">Choose who to pay:</div>
     <div className="mt-[6rem]">
-        <ChoosePayCusTable ID={ID} onClose={handleCloseModal} handleSelect={setObj}/>
+        <ChoosePayCusTable ID={ID} onClose={handleCloseModal} handleSelect={setObj} ROWDATA={ROWDATA}/>
     </div>
       {/* <button onClick={handleSaveChanges}>Save Changes</button> */}
     </Modal>

@@ -4,7 +4,7 @@ import axios from "axios";
 import ChoosePayCus from "./ChoosePayCus/ChoosePayCus";
 
 
-export default function UpdateStatus({ ID, STATUS, DEPARTURE }) {
+export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   const [status, setStatus] = useState(STATUS);
   const [openModal, setOpenModal] = useState(false);
   const hotelstatus = ["Confirmed", "Pending", "Cancelled", "Checked In", "Checked Out"];
@@ -48,7 +48,7 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE }) {
   return (
  <div>
      <select
-       className={`w-[6rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
+       className={`w-[5.5rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
        value={status}
        onChange={(e) => (setStatus(e.target.value), handleChoosePayCus(e.target.value))}
      >
@@ -58,7 +58,7 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE }) {
          </option>
        ))}
      </select>
-     <ChoosePayCus ID={ID} isOpen={openModal} onClose={handleCloseModal1}/>
+     <ChoosePayCus ID={ID} isOpen={openModal} onClose={handleCloseModal1} ROWDATA={ROWDATA}/>
  </div>
   );
 }
