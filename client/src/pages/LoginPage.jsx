@@ -25,8 +25,8 @@ export default function LoginPage() {
       <div className="rounded-xl bg-white px-16 py-10 max-sm:px-8">
         <div className="text-gray-900">
           <div className="mb-8 flex flex-col items-center">
-            <h1 className="mb-2 text-6xl font-delafield text-green-800">
-              Miles
+            <h1 className="mb-2 text-5xl font-delafield text-green-800">
+              AnhemHotel
             </h1>
             <span className="">Welcome back!</span>
           </div>
