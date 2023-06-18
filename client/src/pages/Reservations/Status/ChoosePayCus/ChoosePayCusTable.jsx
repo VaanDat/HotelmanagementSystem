@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTable, useFilters } from 'react-table';
 import { useMemo } from 'react';
+import moment from 'moment';
 import { TextSearchFilter } from '../../../../components/TextSearchFilter';
 import ChoosePayCusTableDesign from './ChoosePayCusTableDesign';
 import axios from "axios";
@@ -54,7 +55,8 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
   //     }
   //   )
   // }
-
+  const arrivalDate = new Date(ROWDATA.ARRIVAL);
+  const departureDate = new Date(ROWDATA.DEPARTURE);
 
   const AddCusReceipt = async (data) => {
     // const date = parse(departure, 'M/d/yyyy', new Date());
@@ -68,6 +70,7 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
     let name = data.FULL_NAME
     let price = ROWDATA.PRICE
     let printday = ROWDATA.DEPARTURE
+    const dayDifference = Math.ceil((departureDate - arrivalDate) / (1000 * 60 * 60 * 24));
     try {
       const response = await axios.post('http://localhost:5000/addreceiptcus', {
         userid : userid,
@@ -77,6 +80,7 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
         name: name,
         price: price,
         printday: printday,
+        rentdays: dayDifference,
       });
       console.log("thanh cong post len receipt");
       window.location.reload()

@@ -12,7 +12,7 @@ import Logoimg from "./assets/logo.png";
 import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
 import "./css/RoomsTypebg.css";
-import "./css/Active.css";
+// import "./css/active.css";
 
 export default function AdminSidebar({ onClick }) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
@@ -64,7 +64,6 @@ export default function AdminSidebar({ onClick }) {
             AnhemHotel
           </h1>
         </div>
-
         <hr class="border-white my-6"></hr>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (

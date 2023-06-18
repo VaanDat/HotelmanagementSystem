@@ -27,18 +27,4 @@ export const ReceiptColumns = [
     ), },
     { Header: 'Status', Cell: ({row}) => <UpdateStatus ID={row.original.ID} STATUS={row.original.STATUS} DEPARTURE={row.original.DEPARTURE}></UpdateStatus>
     },
-    // {
-    //   Header: 'Action', Cell: ({ row }) => <Popup nested modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>
-    //     {close => <EditDataModal 
-    //     close={close} 
-    //     ID={row.original.ID} 
-    //     RoomID={row.original.ROOMID} 
-    //     roomname={row.original.ROOM} 
-    //     roomtype={row.original.ROOM_TYPE}
-    //     regisdatetime={row.original.REGISDATE}
-    //     arrivaltime={row.original.ARRIVAL}
-    //     departuretime={row.original.DEPARTURE}
-    //     />}
-    //   </Popup>
-    // },
   ];

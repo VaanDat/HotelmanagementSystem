@@ -75,7 +75,7 @@ export default function AddReservations({
     content: {
       backgroundColor: "white", // set the background color to transparent
       boxShadow: "none", // remove the shadow effect
-      width: "67rem", // set a custom width
+      width: "68rem", // set a custom width
       height: "37rem", // set a custom height
       top: "50%", // position the modal vertically in the middle
       left: "60%", // position the modal horizontally in the middle
@@ -227,7 +227,7 @@ export default function AddReservations({
             </div>
             <div className="grid grid-flow-col grid-rows-2 gap-y-2 text-sm"></div>
           </div>
-          <div className=" grid grid-rows-3 h-[14rem] grid-flow-col gap-y-[2rem] py-[30px] px-[10px] rounded-md w-[32rem] mt-[1rem] border border-gray-500">
+          <div className=" grid grid-rows-3 h-[14rem] grid-flow-col gap-y-[2rem] py-[30px] px-[10px] rounded-md w-[32rem] mt-[1.5rem] border border-gray-500">
             <div className="ml-8">
               <label
                 htmlFor="registration"
@@ -367,7 +367,7 @@ export default function AddReservations({
               </div>
             </div>
           </div>
-          <div className="grid grid-rows-3 h-[14rem] grid-flow-col gap-y-[3rem] py-[30px] px-[10px] mt-[1rem] ml-[1rem] rounded-md w-[30rem] absolute border border-gray-500">
+          <div className="grid grid-rows-3 h-[14rem] grid-flow-col gap-y-[3rem] py-[30px] px-[10px] mt-[1.5rem] ml-[1rem] rounded-md w-[30rem] absolute border border-gray-500">
             <div className="grid grid-cols-2 grid-flow-row">
               <div className="ml-8 flex">
                 <label htmlFor="" className="font-medium">
@@ -383,12 +383,12 @@ export default function AddReservations({
             </div>
             <div className="ml-8 flex -mt-6">
               <label htmlFor="" className="font-medium">
-                Method
+                Method:
               </label>
               <select
                 value={method}
                 onChange={handleMethodChange}
-                className="translate-x-[62px] mt-2 -translate-y-4  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="translate-x-[20px] mt-2 -translate-y-4  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="gender"
                 name="gender"
               >
@@ -438,16 +438,16 @@ export default function AddReservations({
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center mt-10">
+      <div className="flex justify-center items-center mt-11">
         <button
-          className={`font-medium  text-white rounded-md p-2 ${buttonColor} absolute z-10`}
+          className={`  text-white rounded-md p-2 px-6 bg-emerald-700 absolute z-10`}
           disabled={price == 0 || !regis}
           onClick={() => {
             AddReservations();
             handleCloseModal();
           }}
         >
-          Save Changes
+          Save
         </button>
       </div>
     </Modal>

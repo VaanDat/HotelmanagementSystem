@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useTable } from 'react-table';
+import { useTable, useFilters } from 'react-table';
 import Table from '../../Table';
 import { useMemo } from 'react';
 import {ReservationsColumns} from './ReservationsColumns';
@@ -31,10 +31,18 @@ export default function ReservationsTable({refresh}) {
     getReservations()
   },[refresh])
 
+  const defaultColumn = useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: ""
+    }),
+    []
+  );
+
   const data = useMemo(() => ReservationData);
   const columns = useMemo(() => ReservationsColumns);
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data, defaultColumn }, useFilters);
 
   return (
     <Table tableInstance={tableInstance} />

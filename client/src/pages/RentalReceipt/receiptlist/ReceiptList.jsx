@@ -23,8 +23,6 @@ export default function ReceiptList({deliverstate, month, year}) {
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem("userAuth"))
         let userid = user.ID;
-        const receiptmonth = month;
-        const receiptyear = year;
         const getReservations = async () => {
           // let temp = axios.get('http://localhost:5000/customers')
           const response = await fetch(`http://localhost:5000/rentalreceipt?userid=${userid}`);

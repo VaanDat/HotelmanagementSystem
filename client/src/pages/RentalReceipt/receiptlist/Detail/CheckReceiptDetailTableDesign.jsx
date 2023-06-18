@@ -19,9 +19,7 @@ const CheckReceiptDetailTableDesign = ({ tableInstance, handleSelect, makeSelect
                   )}
                 >
                   {column.render('Header')}
-                  <div className='absolute translate-y-[-4rem] w-[4rem]'>
-                    {column.canFilter ? column.render("Filter") : null}
-                  </div>
+             
                 </th>
               ))}
             </tr>
@@ -30,13 +28,13 @@ const CheckReceiptDetailTableDesign = ({ tableInstance, handleSelect, makeSelect
         <tbody {...getTableBodyProps()}>
           {rows.map(row => {
             prepareRow(row);
-            const isHighlighted = row.original.CID === paycusid; // Compare CID with paycusid
+            // const isHighlighted = row.original.CID === paycusid; // Compare CID with paycusid
 
             return (
               <tr
                 {...row.getRowProps()}
                 className={classNames("border-t border-gray-200", {
-                  "bg-green-200": isHighlighted, // Apply green background if CID matches paycusid
+                  // Apply green background if CID matches paycusid
                 })}
               >
                 {row.cells.map(cell => (
