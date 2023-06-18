@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import axios from "axios";
-import ChoosePayCus from "./ChoosePayCus/ChoosePayCus";
 
 
-export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
+export default function UpdateReceiptStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   const [status, setStatus] = useState(STATUS);
   const [openModal, setOpenModal] = useState(false);
   const hotelstatus = ["Confirmed", "Pending", "Cancelled", "Checked In", "Checked Out"];
@@ -58,7 +57,6 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
          </option>
        ))}
      </select>
-     <ChoosePayCus ID={ID} isOpen={openModal} onClose={handleCloseModal1} ROWDATA={ROWDATA}/>
  </div>
   );
 }

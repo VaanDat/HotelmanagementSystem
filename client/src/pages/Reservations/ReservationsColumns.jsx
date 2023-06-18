@@ -11,11 +11,6 @@ export const ReservationsColumns = [
 
     { Header: 'Id', accessor: (row,index) => index + 1},
     { Header: 'Room', accessor: 'ROOM' },
-    { 
-    Header: 'Details', Cell: ({ row }) => <Popup modal trigger={<button className="p-2 bg-[#60a5fa] text-white rounded-lg">Check</button>}>
-    {close => <CheckDetail close={close} ID={row.original.ID} PAYCUS={row.original.PAYCUSID}
-    />}
-  </Popup> },
     { Header: 'Type', accessor: 'ROOM_TYPE'},
     { Header: 'RegisDate', accessor: 'REGISDATE' },
     { Header: 'Arrival', accessor: 'ARRIVAL' },
@@ -26,6 +21,11 @@ export const ReservationsColumns = [
         })}
       </div>
     ), },
+    { 
+      Header: 'Details', Cell: ({ row }) => <Popup modal trigger={<button className="p-2 bg-[#60a5fa] text-white rounded-lg">Check</button>}>
+      {close => <CheckDetail close={close} ID={row.original.ID} PAYCUS={row.original.PAYCUSID}
+      />}
+    </Popup> },
     { Header: 'Status', Cell: ({row}) => 
     <UpdateStatus 
     ID={row.original.ID} 

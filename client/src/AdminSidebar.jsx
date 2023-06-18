@@ -70,7 +70,6 @@ export default function AdminSidebar({ onClick }) {
             !open && "scale-0"
           }`}
         >
-          Welcome back!
         </p>
         <hr class="border-white my-6"></hr>
         <ul className="pt-6">

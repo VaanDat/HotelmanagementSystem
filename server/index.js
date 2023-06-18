@@ -544,9 +544,10 @@ app.post('/addreceiptcus', (req, res) => {
     const name = req.body.name;
     const printday = req.body.printday;
     const price = req.body.price;
+    const rentdays = req.body.rentdays;
     
-    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, RID, FULL_NAME, ADDRESS, PRINTDAY, PRICE) VALUES (?,?,?,?,?,?,?)',
-        [userid, paycusid, rid, name, address, printday, price], (err, result) => {
+    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, RID, FULL_NAME, ADDRESS, RENTDAYS, PRINTDAY, PRICE) VALUES (?,?,?,?,?,?,?,?)',
+        [userid, paycusid, rid, name, address, rentdays, printday, price], (err, result) => {
             if (err) {
                 console.log(err)
             } else {

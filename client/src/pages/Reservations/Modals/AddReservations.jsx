@@ -223,14 +223,8 @@ export default function AddReservations({ isOpen, onClose, onOpenModal2, onOpenM
               <div className="flex ml-8 -mt-2">
                 <div>
                   <label htmlFor="">Persons:</label>
-                  <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-10 w-[4rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
-                    name="persons"
-                    id="persons"
-                  // onChange={(e) => {
-                  //     setFullName(e.target.value);
-                  // }}
-                  />
+                  <span> {customers === null ? '0' : `${customers.length}`}
+                </span>
                 </div>
 
               </div>
