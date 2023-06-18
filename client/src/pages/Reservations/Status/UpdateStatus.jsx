@@ -3,14 +3,19 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import ChoosePayCus from "./ChoosePayCus/ChoosePayCus";
 
-
 export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   const [status, setStatus] = useState(STATUS);
   const [openModal, setOpenModal] = useState(false);
-  const hotelstatus = ["Confirmed", "Pending", "Cancelled", "Checked In", "Checked Out"];
+  const hotelstatus = [
+    "Confirmed",
+    "Pending",
+    "Cancelled",
+    "Checked In",
+    "Checked Out",
+  ];
   const statusColors = {
-    "Confirmed": "bg-green-500",
-    "Pending": "bg-[#cbac88]", 
+    "Confirmed": "bg-[#3d70b2]",
+    "Pending": "bg-[#FFB72B]",
     "Cancelled": "bg-[#fe5f55]",
     "Checked In": "bg-blue-500",
     "Checked Out": "bg-[#3d70b2]",
@@ -20,12 +25,11 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   useEffect(() => {
     updateStatus(ID);
     setOptionColor(statusColors[status]);
- 
   }, [status, ID]);
 
   const handleCloseModal1 = () => {
     setOpenModal(false);
-};
+  };
 
   const updateStatus = async (ID) => {
     try {
@@ -38,27 +42,34 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
       console.log(error);
     }
   };
- 
+
   const handleChoosePayCus = (data) => {
-    if (data === "Confirmed"){
+    if (data === "Confirmed") {
       setOpenModal(true);
-   }
-  }
+    }
+  };
 
   return (
- <div>
-     <select
-       className={`w-[5.5rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
-       value={status}
-       onChange={(e) => (setStatus(e.target.value), handleChoosePayCus(e.target.value))}
-     >
-       {hotelstatus.map((value, key) => (
-         <option value={value} key={key}>
-           {value}
-         </option>
-       ))}
-     </select>
-     <ChoosePayCus ID={ID} isOpen={openModal} onClose={handleCloseModal1} ROWDATA={ROWDATA}/>
- </div>
+    <div>
+      <select
+        className={`w-[5.5rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
+        value={status}
+        onChange={(e) => (
+          setStatus(e.target.value), handleChoosePayCus(e.target.value)
+        )}
+      >
+        {hotelstatus.map((value, key) => (
+          <option value={value} key={key}>
+            {value}
+          </option>
+        ))}
+      </select>
+      <ChoosePayCus
+        ID={ID}
+        isOpen={openModal}
+        onClose={handleCloseModal1}
+        ROWDATA={ROWDATA}
+      />
+    </div>
   );
 }

@@ -11,9 +11,8 @@ import Staffsimg from "./assets/staffs.png";
 import Logoimg from "./assets/logo.png";
 import Dashboard from "./Dashboard";
 import Reservations from "./Reservations";
-import ReactDOM from "react-dom/client";
 import "./css/RoomsTypebg.css";
-import "./css/Active.css";
+// import "./css/active.css";
 
 export default function AdminSidebar({ onClick }) {
   // const temp = ReactDOM.createRoot(document.getElementById('render-item'))
@@ -47,7 +46,7 @@ export default function AdminSidebar({ onClick }) {
     <div className="flex">
       <div
         className={` ${
-          open ? "w-72" : "w-20 "
+          open ? "w-64" : "w-20 "
         } bg-emerald-800 h-screen p-5  pt-8 relative duration-300`}
       >
         <img
@@ -62,15 +61,9 @@ export default function AdminSidebar({ onClick }) {
               !open && "scale-0"
             }`}
           >
-            Miles
+            AnhemHotel
           </h1>
         </div>
-        <p
-          className={`flex justify-center text-gray-200 font-thin duration-200 ${
-            !open && "scale-0"
-          }`}
-        >
-        </p>
         <hr class="border-white my-6"></hr>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
@@ -97,11 +90,9 @@ export default function AdminSidebar({ onClick }) {
           ))}
         </ul>
       </div>
-      <div className="h-screen flex-1 p-7">
-        <h1 className="text-2xl font-semibold">{activeItem}</h1>
-        <div id='render-item'>
-
-        </div>
+      <div className="h-screen pt-8 pl-5">
+        <h1 className="text-xl font-semibold uppercase ">{activeItem}</h1>
+        <div id="render-item"></div>
       </div>
     </div>
   );
