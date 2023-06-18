@@ -21,15 +21,14 @@ A website for user manage their own hotel!
 ## 🛠 Deployment
 
 Before you try to deploy run
-
+About server
 ```bash
-  npm install
+  npm run server
+```
+About client
+```bash
+  npm start
 ```
 
-To deploy this project run
-
-```bash
-  npm run dev
-```
 
 Then check it out at http://localhost:3000/
