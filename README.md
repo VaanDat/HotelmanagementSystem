@@ -21,7 +21,7 @@ A website for user manage their own hotel!
 ## 🛠 Deployment
 
 Before you try to deploy run
-```
+
 About server
 ```bash
   npm run server
