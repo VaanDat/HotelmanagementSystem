@@ -438,7 +438,6 @@ app.get('/tilephuthu', (req, res) => {
         else {
             res.send(result)
         }
-
     })
 })
 
@@ -573,6 +572,18 @@ app.get('/receiptdetail', (req, res) => {
             res.send(result)
         }
 
+    })
+})
+
+app.delete('/deleterentalreceipt/:id', (req,res) => {
+    const id=req.params.id
+    DBconnection.query("DELETE FROM rental_receipt WHERE RID = ?", [id], (err,result) =>{
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result);
+        }
     })
 })
 

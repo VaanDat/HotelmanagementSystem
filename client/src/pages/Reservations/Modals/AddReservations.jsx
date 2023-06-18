@@ -126,7 +126,7 @@ export default function AddReservations({
 
   useEffect(() => {
     if (price > 0) {
-      setButtonColor("bg-sky-400");
+      setButtonColor("bg-emerald-700");
     }
   });
 
@@ -250,20 +250,14 @@ export default function AddReservations({
               />
             </div>
             <div className="grid grid-rows-2 grid-flow-col">
-              <div className="flex ml-8 -mt-4">
+              <div className="flex ml-8 -mt-2">
                 <div>
                   <label htmlFor="" className="font-medium">
                     Persons:
                   </label>
-                  <input
-                    className="bg-gray-50 border text-center border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ml-3 w-[4rem] p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
-                    name="persons"
-                    id="persons"
-                    // onChange={(e) => {
-                    //     setFullName(e.target.value);
-                    // }}
-                  />
+                  <span
+                  className="ml-2"
+                  >{customers === null ? '0' : `${customers.length}`}</span>
                 </div>
               </div>
               <div className="flex mt-4">
@@ -388,7 +382,7 @@ export default function AddReservations({
               <select
                 value={method}
                 onChange={handleMethodChange}
-                className="translate-x-[20px] mt-2 -translate-y-4  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="translate-x-[62px] mt-2 -translate-y-4  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[6rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="gender"
                 name="gender"
               >
@@ -398,11 +392,9 @@ export default function AddReservations({
               </select>
               {showCardInput && (
                 <div className="mt-2 translate-x-[-9.7rem] translate-y-[2.7rem]">
-                  <label htmlFor="card-number" className="font-medium ml-2">
-                    Card Number:
-                  </label>
+              
                   <input
-                    className="rounded-md border border-gray-500 p-2 ml-32 translate-y-[-2rem]"
+                    className="rounded-md border border-gray-500 p-2 ml-[7.5rem] translate-y-[-10px]"
                     type="text"
                     id="card-number"
                     name="card-number"
@@ -412,11 +404,9 @@ export default function AddReservations({
               )}
               {showCouponInput && (
                 <div className="translate-x-[-9.7rem] translate-y-[3rem]">
-                  <label htmlFor="card-number" className="font-medium ml-2">
-                    Code:
-                  </label>
+           
                   <input
-                    className="rounded-md p-2 translate-y-[-2rem] ml-32 border border-gray-500"
+                    className="rounded-md p-2 ml-[7.5rem] translate-y-[-10px] border border-gray-500"
                     type="text"
                     id="coupon"
                     name="coupon"
@@ -440,7 +430,7 @@ export default function AddReservations({
       </div>
       <div className="flex justify-center items-center mt-11">
         <button
-          className={`  text-white rounded-md p-2 px-6 bg-emerald-700 absolute z-10`}
+          className={`${buttonColor}  text-white rounded-md p-2 px-6 absolute z-10`}
           disabled={price == 0 || !regis}
           onClick={() => {
             AddReservations();

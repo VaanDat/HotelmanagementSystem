@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useTable, useFilters } from 'react-table';
 import { useMemo } from 'react';
-import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { TextSearchFilter } from '../../../../components/TextSearchFilter';
 import ChoosePayCusTableDesign from './ChoosePayCusTableDesign';
 import axios from "axios";
 
 
-export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }) {
+export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA}) {
   const [cusDeliver, setCusDeliver] = useState([]);
-  const [PickData, setPickData] = useState()
-  const maxCus = 3;
+  const [isPicked, setIsPicked] = useState(0)
   const handleCloseModal = () => {
     onClose();
   };
@@ -35,10 +35,20 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
     }).then(
 
       (response) => {
-        alert("updated")
+        toast.success('1 reservation and receipt removed!', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeButton: false, // Disable the close button
+          draggable: false, // Disable dragging
+          pauseOnHover: false,
+          closeOnClick: false,
+          pauseOnFocusLoss: false,
+          });
       }
     )
   }
+
 
   // const AddCusReceipt = (data) => {
   //   const id = ID
@@ -83,6 +93,7 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
         rentdays: dayDifference,
       });
       console.log("thanh cong post len receipt");
+      setIsPicked(2)
       window.location.reload()
       // const reservationID = response.data.insertId;
       // AddReservationsDetail(reservationID);
@@ -91,27 +102,6 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
     }
   };
   
-
-
-  // const AddReservationsDetail = async (reservationID) => {
-  //   try {
-  //     for (const customer of customers) {
-  //       await axios.post("http://localhost:5000/createreservationdetail", {
-  //         userid : userid,
-  //         reserID: reservationID,
-  //         customerID: customer.ID,
-  //         fullname: customer.FULL_NAME,
-  //         custype: customer.COUNTRY,
-  //         identity: customer.IDENTITY_NUMBER,
-  //         birthday: customer.BIRTHDAY,
-  //       });
-  //     }
-  //     console.log("Data posted successfully");
-  //   } catch (error) {
-  //     console.error("Error posting data:", error);
-  //   }
-  // };
-
   useEffect(() => {
     const getCustomer = async () => {
       // let temp = axios.get('http://localhost:5000/customers')
@@ -145,19 +135,20 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
     { Header: 'IDENTITY', accessor: 'IDENTITY' },
     { Header: 'BIRTHDAY', accessor: 'BIRTHDAY' },
     {
-      Header: 'Choose',
+      Header: 'Confirm',
       Cell: ({ row }) => (
         <div
           onClick={() => {
             console.log(row.original)
             updatePayCus(row.original)
             AddCusReceipt(row.original)
+            
             // handleCloseModal();
 
 
 
           }}
-          className="font-medium translate-x-3 cursor-pointer p-2 bg-sky-400 text-center rounded-xl text-white"
+          className="font-medium translate-x-[-10px] cursor-pointer p-2 bg-sky-400 text-center rounded-xl text-white"
         >
           Pick
         </div>
@@ -169,7 +160,7 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA }
 
   return (
     <div className='flex flex-col'>
-      <ChoosePayCusTableDesign tableInstance={tableInstance} handleSelect={setObj} />
+      <ChoosePayCusTableDesign tableInstance={tableInstance} handleS elect={setObj} />
     </div>
   );
 }
