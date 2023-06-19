@@ -3,13 +3,15 @@ import Modal from 'react-modal';
 import ShowCustomerTable from "../../TableHandle/Customer/ShowCustomerTable";
 import { useEffect, useState } from 'react';
 import ChoosePayCusTable from "./ChoosePayCusTable";
+import axios from 'axios'
 
 Modal.setAppElement('#root');
 
-export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROWDATA }) {
+export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROWDATA, statedeliver, deliverstatus }) {
   const [cusDeliver, setCusDeliver] = useState([]);
+  const [status, setStatus] = useState([])
   const handleCloseModal = () => {
-    onClose();
+    updateStatus(ID)
   };
 
   const setObj = (props) => {
@@ -18,6 +20,23 @@ export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROW
     localStorage.setItem('pickedCustomers', jsonCus);
     // console.log(`here is it ${localStorage.getItem('pickedCustomers')}`)
   }
+
+  const updateStatus = async (ID) => {
+    try {
+      await axios.put("http://localhost:5000/updatestatus", {
+        id: ID,
+        status: "Pending",
+      });
+      console.log("Status updated successfully!")
+      setStatus("Pending")
+      deliverstatus("Pending")
+      onClose()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   useEffect(() => {
     // Perform any actions with the cusDeliver variable here
@@ -54,7 +73,7 @@ export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROW
                 </div>
     <div className="font-neon text-xl translate-x-[14rem] absolute">Choose who to pay:</div>
     <div className="mt-[6rem]">
-        <ChoosePayCusTable ID={ID} onClose={handleCloseModal} handleSelect={setObj} ROWDATA={ROWDATA}/>
+        <ChoosePayCusTable ID={ID} onClose={handleCloseModal} handleSelect={setObj} ROWDATA={ROWDATA} statedeliver={statedeliver}/>
     </div>
       {/* <button onClick={handleSaveChanges}>Save Changes</button> */}
     </Modal>
