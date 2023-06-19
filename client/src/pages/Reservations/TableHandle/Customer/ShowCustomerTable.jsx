@@ -5,13 +5,23 @@ import { useMemo } from 'react';
 import { ColumnsofShowCustomer } from './ColumnsofShowCustomer';
 import { TextSearchFilter } from '../../../../components/TextSearchFilter';
 import { Checkbox } from '../../../../components/Checkbox';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShowCustomerTable({ onClose, handleSelect }) {
   const [cusDeliver, setCusDeliver] = useState([]);
   const maxCus = 3
   const handleCloseModal = () => {
     if (cusDeliver.length > maxCus) {
-      alert(`Number of customers in 1 room must be smaller than ${maxCus}.`);
+      toast.warn(`1 reservation and receipt removed!`, {
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeButton: false, // Disable the close button
+        draggable: false, // Disable dragging
+        pauseOnHover: false,
+        closeOnClick: false,
+        pauseOnFocusLoss: false,
+        });;
     } else {
       onClose();
     }
@@ -90,6 +100,9 @@ export default function ShowCustomerTable({ onClose, handleSelect }) {
         onClick={handleCloseModal}
       >
         Pick
+      </div>
+      <div className='absolute'>
+      <ToastContainer/>
       </div>
     </div>
   );

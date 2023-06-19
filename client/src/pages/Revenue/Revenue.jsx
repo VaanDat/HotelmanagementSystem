@@ -67,7 +67,7 @@ export default function Revenue() {
   return (
     <div className="list relative">
       <div className="relative">
-        <div className="relative top-[120px] -left-[80px] font-neon">
+        <div className="relative top-[120px] font-neon">
           {!openReceiptList ? (
             <div>{renderMonthCards()}</div>
           ) : (

@@ -155,6 +155,8 @@ export default function AddReservations({
       );
       console.log("Thanh Cong");
       const reservationID = response.data.insertId;
+      console.log("haha")
+      console.log(response)
       AddReservationsDetail(reservationID);
     } catch (error) {
       console.error("Error posting data:", error);

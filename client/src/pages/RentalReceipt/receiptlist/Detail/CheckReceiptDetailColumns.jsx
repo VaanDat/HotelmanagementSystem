@@ -3,13 +3,19 @@ import moment from 'moment';
 
 export const CheckReceiptDetailColumns = [
     { Header: 'ID', accessor: (row,index) => index + 1},
+    { Header: 'REGISDATE', accessor: "REGISDATE"},
     { Header: 'ROOM', accessor: 'ROOM', 
     Filter: TextSearchFilter,
   },
     { Header: 'DAYS',  Cell: ({ row }) => <div>
     {Math.ceil(( (new Date(row.original.DEPARTURE)) - (new Date(row.original.ARRIVAL))) / (1000 * 60 * 60 * 24))}
   </div>,},
-    { Header: 'PRICE', accessor: 'DAYPRICE' },
+    { Header: 'PRICE', accessor: 'DAYPRICE', Cell: ({ value }) => (
+      <div>
+        {value.toLocaleString(undefined, {
+        })}
+      </div>
+    ),},
     { Header: 'TOTAL', accessor: 'PRICE', Cell: ({ value }) => (
       <div>
         {value.toLocaleString(undefined, {
