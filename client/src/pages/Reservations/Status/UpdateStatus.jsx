@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ChoosePayCus from "./ChoosePayCus/ChoosePayCus";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,10 +8,21 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   const [status, setStatus] = useState(STATUS);
   const [openModal, setOpenModal] = useState(false);
   const [realtimestatus, setrealtimestatus] = useState('')
-  const [isPayCusPicked, setIsPayCusPicked] = useState(false)
+  const [rcstatus, setrcstatus] = useState()
   
   const hotelstatus = [
     "Pending",
+    "Confirmed",
+    "Checked In",
+    "Checked Out",
+    "Cancelled",
+  ];
+  const hotelstatusdefault = [
+    "Pending",
+    "Confirmed",
+    "Cancelled",
+  ];
+  const hotelstatusconfirmed = [
     "Confirmed",
     "Checked In",
     "Checked Out",
@@ -25,38 +36,27 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
     "Checked Out": "bg-[#3d70b2]",
   };
 
-  useEffect(() => {
-    let user = JSON.parse(localStorage.getItem("userAuth"))
-    let userid = user.ID;
-    let rid = ID
-    const getReservationsStatus = async () => {
-      // let temp = axios.get('http://localhost:5000/customers')
-      const response = await fetch(`http://localhost:5000/reservationstatus?userid=${userid}&rid=${rid}`);
-      const jsonData = await response.json(); 
-      setStatus(jsonData);
-    }
-    getReservationsStatus()
-  },[])
 
   const [optioncolor, setOptionColor] = useState(statusColors[STATUS]);
 
   useEffect(() => {
-    updateStatus(ID);
+    // updateStatus(ID);
     setOptionColor(statusColors[status]);
-  }, [status, ID]);
+  }, [status]);
 
+    
   const handleCloseModal1 = () => {
     setOpenModal(false);
   };
 
-  const updateStatus = async (ID) => {
+  const updateStatus = async (data, ID) => {
     try {
       await axios.put("http://localhost:5000/updatestatus", {
         id: ID,
-        status: status,
+        status: data,
       });
       console.log("Status updated successfully!");
-      if (realtimestatus === "Cancelled"){
+      if (data === "Cancelled"){
         toast.success('1 reservation and receipt removed!', {
           position: "top-right",
           autoClose: 1500,
@@ -68,26 +68,14 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
           pauseOnFocusLoss: false,
           });
       }
+      // addReceiptStatus(status)
+      if (data === "Checked In" || data === "Checked Out"){
+      window.location.reload()}
     } catch (error) {
       console.log(error);
     }
   };
-
-  const useToast = () => {
-    toast.success('1 reservation and receipt removed!', {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeButton: false, // Disable the close button
-      draggable: false, // Disable dragging
-      pauseOnHover: false,
-      closeOnClick: false,
-      pauseOnFocusLoss: false,
-      })
-  }
-
-
-  const customId = "custom-id-yes";
+  
 
   console.log(realtimestatus)
 
@@ -105,23 +93,15 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
     axios.delete(`http://localhost:5000/deleterentalreceipt/${id}`)
   }
 
-  const handlepaycuspick = (data) => {
-    if (data < 2){
-      setIsPayCusPicked(true)
-    }
-    else setIsPayCusPicked(false)
-  }
 
   const handlestatus = (data) => {
     setStatus(data)
   }
 
-  console.log(isPayCusPicked)
-
   return (
     <div>
     <ToastContainer/>
-      <select 
+      {/* <select 
         className={`w-[5.5rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
         value={status}
         onChange={(e) => (
@@ -133,6 +113,29 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
             {value}
           </option>
         ))}
+      </select> */}
+      <select 
+        className={`w-[5.5rem] p-1 text-xs ${optioncolor} text-white rounded-xl border-2`}
+        value={status}
+        onChange={(e) => (
+          setStatus(e.target.value),
+          statushandle(e.target.value),
+          setrealtimestatus(e.target.value),
+          updateStatus(e.target.value, ID)
+          // addReceiptStatus(e.target.value)
+        )}
+      >
+        {ROWDATA.CONFIRMED === 1
+          ? hotelstatusconfirmed.map((value, key) => (
+              <option value={value}>
+                {value}
+              </option>
+            ))
+          : hotelstatusdefault.map((value, key) => (
+              <option value={value}>
+                {value}
+              </option>
+            ))}
       </select>
       <ChoosePayCus
         ID={ID}
@@ -140,7 +143,6 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
         onClose={handleCloseModal1}
         ROWDATA={ROWDATA}
         deliverstatus={handlestatus}
-        statedeliver={handlepaycuspick}
       />
     </div>
   );

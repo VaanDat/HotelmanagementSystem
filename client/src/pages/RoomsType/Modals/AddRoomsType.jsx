@@ -23,10 +23,11 @@ export default function AddRoomsType({ close }) {
         console.log(TYPE,LEVEL,PRICE,CAPACITY,SC_RATE,DESC)
     }
 
-    const addRoomsType = () => {
-        let user = JSON.parse(localStorage.getItem("userAuth"))
+    const addRoomsType = async () => {
+        let user = JSON.parse(localStorage.getItem("userAuth"));
         let userid = user.ID;
-        axios.post('http://localhost:5000/createroomstype',{
+        try {
+          const response = await axios.post('http://localhost:5000/createroomstype', {
             userid: userid,
             type: TYPE,
             level: LEVEL,
@@ -34,6 +35,26 @@ export default function AddRoomsType({ close }) {
             capacity: CAPACITY,
             rate: SC_RATE,
             desc: DESC,
+          });
+      
+          const roomtypeid = response.data.insertId;
+          console.log("RoomType ID:", roomtypeid);
+          console.log(response)
+          await addRevenue(roomtypeid);
+          console.log("thanh cong");
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+    const addRevenue = async (roomtypeid) => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
+        let rtid = roomtypeid;
+        axios.post('http://localhost:5000/createrevenue',{
+            userid: userid,
+            roomtype: TYPE,
+            rtid: rtid,
         }).then(() => {
             console.log("thanh cong")
         })
@@ -121,7 +142,7 @@ export default function AddRoomsType({ close }) {
                
                 <div className="translate-x-7 translate-y-[220px]">
                     {/* <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg">Delete</button> */}
-                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" onClick={addRoomsType}>Save Changes</button>
+                    <div className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" onClick={addRoomsType}>Save Changes</div>
                 </div>
             </form>
         </div>

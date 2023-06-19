@@ -5,8 +5,8 @@ const CheckReceiptDetailTableDesign = ({ tableInstance, handleSelect, makeSelect
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, selectedFlatRows } = tableInstance;
 
   return (
-    <div className='py-4'>
-      <table {...getTableProps()} className="w-[40rem] table-fixed bg-white rounded-lg">
+    <div className='h-[13rem] w-[37.5rem] overflow-auto'>
+      <table {...getTableProps()} className="w-[36rem] h-[18rem] table-fixed bg-white translate-y-3 rounded-lg">
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

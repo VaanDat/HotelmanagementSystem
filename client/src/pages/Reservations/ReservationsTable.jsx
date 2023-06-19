@@ -3,6 +3,7 @@ import { useTable, useFilters } from 'react-table';
 import Table from '../../Table';
 import { useMemo } from 'react';
 import {ReservationsColumns} from './ReservationsColumns';
+import ReservationTableDesign from './ReservationTableDesign';
 
 export default function ReservationsTable({refresh}) {
 
@@ -45,7 +46,7 @@ export default function ReservationsTable({refresh}) {
   const tableInstance = useTable({ columns, data, defaultColumn }, useFilters);
 
   return (
-    <Table tableInstance={tableInstance} />
+    <ReservationTableDesign tableInstance={tableInstance} />
   );
 };
 
