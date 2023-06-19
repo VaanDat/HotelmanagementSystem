@@ -1,20 +1,28 @@
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
+import Userlogo from "./assets/hacker.png";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Userbar() {
-    let user = JSON.parse(localStorage.getItem('userAuth'))
+  let user = JSON.parse(localStorage.getItem("userAuth"));
   return (
-    <Menu as="div" className="fixed text-left translate-x-[83rem] mt-8">
-      <div>
+    <Menu as="div" className="fixed text-left translate-x-[80rem] mt-8">
+      <div className="flex">
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300">
-        {user.Firstname} {user.Lastname}
-          <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+          <img
+            src={Userlogo}
+            className="mr-2 border border-gray-700 rounded-xl h-5 w-5 mt-0.5"
+          />
+          {user.Firstname} {user.Lastname}
+          <ChevronDownIcon
+            className="-mr-1 h-5 w-5 text-gray-400"
+            aria-hidden="true"
+          />
         </Menu.Button>
       </div>
 
@@ -34,8 +42,8 @@ export default function Userbar() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Account settings
@@ -47,8 +55,8 @@ export default function Userbar() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Support
@@ -60,8 +68,8 @@ export default function Userbar() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   License
@@ -71,12 +79,12 @@ export default function Userbar() {
             <form method="POST" action="#">
               <Menu.Item>
                 {({ active }) => (
-                  <Link to={'/login'}>
+                  <Link to={"/login"}>
                     <button
                       type="submit"
                       className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block w-full px-4 py-2 text-left text-sm'
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block w-full px-4 py-2 text-left text-sm"
                       )}
                     >
                       Sign out
@@ -89,5 +97,5 @@ export default function Userbar() {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
+  );
 }
