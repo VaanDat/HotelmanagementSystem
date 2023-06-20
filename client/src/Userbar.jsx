@@ -11,7 +11,7 @@ function classNames(...classes) {
 export default function Userbar() {
   let user = JSON.parse(localStorage.getItem("userAuth"));
   return (
-    <Menu as="div" className="fixed text-left translate-x-[80rem] mt-8">
+    <Menu as="div" className="fixed text-left translate-x-[85rem] mt-8">
       <div className="flex">
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300">
           <img
