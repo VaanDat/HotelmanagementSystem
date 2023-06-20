@@ -5,7 +5,7 @@ export const CustomerColumns = [
     { Header: 'Full name', accessor: 'FULL_NAME', 
     Filter: TextSearchFilter,
   },
-    { Header: 'Type', accessor: 'TYPE' },
+    { Header: 'Country', accessor: 'TYPE' },
     { Header: 'Identity Number', accessor: 'IDENTITY' },
     { Header: 'Birthday', accessor: 'BIRTHDAY' },
 
