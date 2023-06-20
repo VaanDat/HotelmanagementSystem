@@ -78,7 +78,7 @@ export default function AddRoomModal({ close }) {
         </a>
       </div>
       <h2 className=" -mt-1 text-2xl flex justify-center"> ADD ROOM</h2>
-      <hr class="border-black w-[550px] ml-12 mt-4"></hr>
+
       <form className="w-[40rem] grid grid-cols-2 gap-x-2 gap-y-12  mt-2 mr-1 items-center ml-4">
         <div className="ml-8 translate-y-[40px] text-xl font-medium -top-6 relative text-gray-900 dark:text-white">
           {" "}
@@ -188,15 +188,15 @@ export default function AddRoomModal({ close }) {
               setStatus(e.target.value);
             }}
           >
-            <option value="empty">empty</option>
-            <option value="checkedin">checked in</option>
+            <option value="empty">Empty</option>
+            <option value="checkedin">Checked in</option>
           </select>
         </div>
 
         <div className="relative translate-y-8">
           {/* <button className="right-0 bottom-0 translate-y-20 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg" type="submit">Delete</button> */}
           <button
-            className="right-0 bottom-0 absolute translate-y-[-40px] translate-x-[18rem] bg-emerald-600 text-white p-2 rounded-lg"
+            className="right-0 bottom-0 absolute translate-y-[-40px] translate-x-[2.5rem] bg-emerald-600 text-white px-4 py-2 rounded-lg"
             onClick={addRoom}
           >
             Save
