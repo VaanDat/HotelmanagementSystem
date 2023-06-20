@@ -246,14 +246,23 @@ app.post('/createroomstype', (req, res) => {
     );
 })
 
+
+
 app.get('/roomstype', (req, res) => {
     const userId = req.query.userId;
     DBconnection.query("SELECT * FROM rooms_type WHERE USERID = ?",
     [userId],
     (err, result) => {
         if (err) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                // Handle the constraint error by sending an appropriate error response
+                res.status(400).json({ error: 'Duplicate entry' });
+              } else {
+                // Handle other errors
+                res.status(500).json({ error: 'Internal server error' });
+              }
             console.log(err)
-            res.status(500).send('Error retrieving data');
+            res.status(400).send('Error retrieving data');
         }
         else {
             res.send(result)
@@ -416,8 +425,57 @@ app.put('/updatereservationdetail', (req, res) => {
 
 app.get('/reservations', (req, res) => {
     const userid = req.query.userid;
-    DBconnection.query("SELECT * FROM reservations WHERE USERID = ?",
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
     [userid],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/reservationsmonthscale', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND MONTH = ? AND YEAR = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
+    [userid, month, year],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/cancelledreservations', (req, res) => {
+    const userid = req.query.userid;
+    const status = "Cancelled"
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS = ?",
+    [userid, status],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/pendingreservations', (req, res) => {
+    const userid = req.query.userid;
+    const status = "Pending"
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS = ?",
+    [userid, status],
     (err, result) => {
         if (err) {
             console.log(err)
@@ -656,6 +714,59 @@ app.post('/createrevenue', (req, res) => {
         }
     );
 })
+
+app.get('/revenue', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year;
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND MONTH = ? AND YEAR = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
+    [userid, month, year],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/getrevenue', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year;
+    DBconnection.query("SELECT * FROM revenue WHERE USERID = ?",
+    [userid],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+// app.put('/createrevenue', (req, res) => {
+//     const userid = req.body.userid;
+//     const roomtype = req.body.roomtype;
+//     const rtid = req.body.rtid;
+
+//     DBconnection.query('UPDATE revenue SET RID = ? AND MONTH = ? AND YEAR = ? WHERE RECID = ?',
+//         [userid, rtid, roomtype], (err, result) => {
+//             if (err) {
+//                 console.log(err)
+//             } else {
+//                 res.send(result); 
+//             }
+//         }
+//     );
+// })
+
 
 
 // app.get('/roomstype', (req, res) => {

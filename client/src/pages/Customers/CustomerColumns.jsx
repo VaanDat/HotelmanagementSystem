@@ -14,7 +14,7 @@ export const CustomerColumns = [
     { Header: 'Phone Number', accessor: 'PHONE_NUMBER' },
     { Header: 'Identity Number', accessor: 'IDENTITY_NUMBER' },
     { Header: 'Country', accessor: 'COUNTRY' },
-    { Header: 'Adress', accessor: 'ADDRESS' },
+    { Header: 'Address', accessor: 'ADDRESS' },
     {
       Header: 'Action', Cell: ({ row }) => <Popup modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>
         {close => <ActionCustomerModal close={close} ID={row.original.ID} name={row.original.FULL_NAME} room={row.original.ROOM} gender={row.original.GENDER} 

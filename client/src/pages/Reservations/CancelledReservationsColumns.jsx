@@ -1,12 +1,14 @@
 import Popup from "reactjs-popup";
 import Edit from "../../assets/edit.png";
-import EditDataModal from "./Modals/EditDataModals/EditDataModal";
 import CheckDetail from "./Modals/Detail/CheckDetail";
 import UpdateStatus from "./Status/UpdateStatus";
+import EditDataModal from "./Modals/EditDataModals/EditDataModal";
 import { ModalContext } from "../../ModalContext";
 import { useContext } from "react";
+import ReturnConfirmedModal from "./ReturnConfirmed/ReturnConfirmedModal";
+import { ro } from "date-fns/locale";
 
-export const ReservationsColumns = [
+export const CancelledReservationsColumns = [
   { Header: "Id", accessor: (row, index) => index + 1 },
   { Header: "Room", accessor: "ROOM" },
   {
@@ -41,40 +43,9 @@ export const ReservationsColumns = [
   },
   {
     Header: "Status",
-    Cell: ({ row }) => (
-      <UpdateStatus
-        ID={row.original.ID}
-        STATUS={row.original.STATUS}
-        DEPARTURE={row.original.DEPARTURE}
-        ROWDATA={row.original}
-      ></UpdateStatus>
-    ),
-  },
-  {
-    Header: "Action",
-    Cell: ({ row }) => (
-      <Popup
-        nested
-        modal
-        trigger={
-          <button className="translate-x-3">
-            <img src={Edit} alt="" className="w-7 h-7" />
-          </button>
-        }
-      >
-        {(close) => (
-          <EditDataModal
-            close={close}
-            ID={row.original.ID}
-            RoomID={row.original.ROOMID}
-            roomname={row.original.ROOM}
-            roomtype={row.original.ROOM_TYPE}
-            regisdatetime={row.original.REGISDATE}
-            arrivaltime={row.original.ARRIVAL}
-            departuretime={row.original.DEPARTURE}
-          />
-        )}
-      </Popup>
-    ),
+    Cell: ({ row }) => <Popup modal trigger={<button className="translate-x-[-10px] text-xs text-white rounded-lg p-2 bg-[#3d70b2]">Return Confirmed</button>}>
+    {close => <ReturnConfirmedModal close={close} ID={row.original.ID} ROWDATA={row.original}
+  />}
+  </Popup>
   },
 ];

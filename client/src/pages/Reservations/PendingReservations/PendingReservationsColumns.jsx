@@ -1,12 +1,11 @@
 import Popup from "reactjs-popup";
-import Edit from "../../assets/edit.png";
-import EditDataModal from "./Modals/EditDataModals/EditDataModal";
-import CheckDetail from "./Modals/Detail/CheckDetail";
-import UpdateStatus from "./Status/UpdateStatus";
-import { ModalContext } from "../../ModalContext";
-import { useContext } from "react";
+import CheckDetail from "../Modals/Detail/CheckDetail";
+import ReturnConfirmedModal from "../ReturnConfirmed/ReturnConfirmedModal";
+import UpdateStatus from "../Status/UpdateStatus";
+import Edit from "../../../assets/edit.png";
+import EditDataModal from "../Modals/EditDataModals/EditDataModal";
 
-export const ReservationsColumns = [
+export const PendingReservationsColumns = [
   { Header: "Id", accessor: (row, index) => index + 1 },
   { Header: "Room", accessor: "ROOM" },
   {

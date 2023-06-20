@@ -33,7 +33,7 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
     "Pending": "bg-[#FFB72B]",
     "Cancelled": "bg-[#fe5f55]",
     "Checked In": "bg-blue-500",
-    "Checked Out": "bg-[#3d70b2]",
+    "Checked Out": "bg-[#9ca3af]",
   };
 
 
@@ -67,6 +67,9 @@ export default function UpdateStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
           closeOnClick: false,
           pauseOnFocusLoss: false,
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1600);
       }
       // addReceiptStatus(status)
       if (data === "Checked In" || data === "Checked Out"){

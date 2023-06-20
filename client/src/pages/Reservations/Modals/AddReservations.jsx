@@ -133,7 +133,7 @@ export default function AddReservations({
   let user = JSON.parse(localStorage.getItem("userAuth"));
   let userid = user.ID;
   const AddReservations = async () => {
-    const date = parse(departure, "M/d/yyyy", new Date());
+    const date = parse(regis, "M/d/yyyy", new Date());
     const month = format(date, "M");
     const year = format(date, "yyyy");
     try {
@@ -177,7 +177,8 @@ export default function AddReservations({
           address: customer.ADDRESS,
         });
       }
-      console.log("Data posted successfully");
+      console.log("detail data posted successfully");
+      window.location.reload()
     } catch (error) {
       console.error("Error posting data:", error);
     }

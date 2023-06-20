@@ -69,6 +69,8 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
 
   const arrivalDate = new Date(ROWDATA.ARRIVAL);
   const departureDate = new Date(ROWDATA.DEPARTURE);
+  let user = JSON.parse(localStorage.getItem("userAuth"));
+  let userid = user.ID;
 
   const AddCusReceipt = async (data) => {
     // const date = parse(departure, 'M/d/yyyy', new Date());
@@ -77,8 +79,6 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
     const id = ID
     const paycusid = data.CID
     const address = data.ADDRESS
-    let user = JSON.parse(localStorage.getItem('userAuth'));
-    let userid = user.ID;
     let name = data.FULL_NAME
     let price = ROWDATA.PRICE
     let printday = ROWDATA.DEPARTURE
@@ -102,11 +102,26 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
         window.location.reload();
       }, 1500);
       // const reservationID = response.data.insertId;
-      // AddReservationsDetail(reservationID);
+      // AddRevenue(reservationID);
     } catch (error) {
       console.error("Error posting data:", error);
     }
   };
+
+  // const AddRevenue = async (reservationID) => {
+  //   try {
+  //       await axios.put("http://localhost:5000/createreservationdetail", {
+  //         userid: userid,
+  //         rid: reservationID,
+  //         month: ROWDATA.MONTH,
+  //         year: ROWDATA.YEAR,
+
+  //       });
+  //     console.log("Update data successfully");
+  //   } catch (error) {
+  //     console.error("Error updating data:", error);
+  //   }
+  // };
   
   useEffect(() => {
     const getCustomer = async () => {
