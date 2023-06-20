@@ -23,9 +23,10 @@ export default function ChooseCustomer({ ID, isOpen, onClose, onSaveChanges, ROW
 
   const updateStatus = async (ID) => {
     try {
-      await axios.put("http://localhost:5000/updatestatus", {
+      await axios.put("http://localhost:5000/updatestatusconfirmed", {
         id: ID,
         status: "Pending",
+        confirmed: 0,
       });
       console.log("Status updated successfully!")
       setStatus("Pending")

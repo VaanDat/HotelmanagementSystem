@@ -9,9 +9,8 @@ import Roomstypeimg from "./assets/roomstype.png";
 import Receiptimg from "./assets/rentalreceipt.png";
 import Staffsimg from "./assets/staffs.png";
 import Logoimg from "./assets/logo.png";
-import Dashboard from "./Dashboard";
-import Reservations from "./Reservations";
 import "./css/RoomsTypebg.css";
+import "./css/Active.css";
 // import "./css/active.css";
 
 export default function AdminSidebar({ onClick }) {
@@ -55,16 +54,23 @@ export default function AdminSidebar({ onClick }) {
            border-2 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
-        <div className="flex gap-x-4 justify-center items-center">
+        <div className="inline-flex gap-x-2 justify-center">
+          <img
+            src={Logoimg}
+            className={`cursor-pointer w-10 h-10 duration-500 ml-5 rounded-3xl    ${
+              open && "rotate-[360deg]"
+            }`}
+          />
           <h1
-            className={`text-white text-5xl origin-left font-delafield text-[2rem] duration-200 ${
+            className={`text-white text-5xl origin-left font-delafield text-[2rem] duration-200 mt-2 ${
               !open && "scale-0"
             }`}
           >
             AnhemHotel
           </h1>
         </div>
-        <hr class="border-white my-6"></hr>
+
+        <hr class="border-white my-4  "></hr>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
             <li
@@ -90,7 +96,7 @@ export default function AdminSidebar({ onClick }) {
           ))}
         </ul>
       </div>
-      <div className="h-screen pt-8 pl-5">
+      <div className="h-screen flex-1 pt-8 pl-5">
         <h1 className="text-xl font-semibold uppercase ">{activeItem}</h1>
         <div id="render-item"></div>
       </div>

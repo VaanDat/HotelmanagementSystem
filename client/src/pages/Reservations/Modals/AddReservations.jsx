@@ -155,6 +155,8 @@ export default function AddReservations({
       );
       console.log("Thanh Cong");
       const reservationID = response.data.insertId;
+      console.log("haha")
+      console.log(response)
       AddReservationsDetail(reservationID);
     } catch (error) {
       console.error("Error posting data:", error);
@@ -192,7 +194,7 @@ export default function AddReservations({
     >
       <div
         onClick={handleCloseModal}
-        className="text-2xl absolute top-0 right-0 -translate-x-[0.5rem] cursor-pointer"
+        className="text-2xl absolute top-0 right-0 -translate-x-[1rem] cursor-pointer"
       >
         &times;
       </div>
@@ -255,9 +257,9 @@ export default function AddReservations({
                   <label htmlFor="" className="font-medium">
                     Persons:
                   </label>
-                  <span
-                  className="ml-2"
-                  >{customers === null ? '0' : `${customers.length}`}</span>
+                  <span className="ml-2">
+                    {customers === null ? "0" : `${customers.length}`}
+                  </span>
                 </div>
               </div>
               <div className="flex mt-4">
@@ -365,7 +367,7 @@ export default function AddReservations({
             <div className="grid grid-cols-2 grid-flow-row">
               <div className="ml-8 flex">
                 <label htmlFor="" className="font-medium">
-                  Payment
+                  Payment:
                 </label>
                 <div
                   htmlFor="room"
@@ -392,7 +394,6 @@ export default function AddReservations({
               </select>
               {showCardInput && (
                 <div className="mt-2 translate-x-[-9.7rem] translate-y-[2.7rem]">
-              
                   <input
                     className="rounded-md border border-gray-500 p-2 ml-[7.5rem] translate-y-[-10px]"
                     type="text"
@@ -404,7 +405,6 @@ export default function AddReservations({
               )}
               {showCouponInput && (
                 <div className="translate-x-[-9.7rem] translate-y-[3rem]">
-           
                   <input
                     className="rounded-md p-2 ml-[7.5rem] translate-y-[-10px] border border-gray-500"
                     type="text"

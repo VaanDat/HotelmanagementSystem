@@ -11,6 +11,8 @@ import axios from "axios";
 export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA}) {
   const [cusDeliver, setCusDeliver] = useState([]);
   const [isPicked, setIsPicked] = useState(0)
+  const [rcstatus, setrcstatus] = useState()
+
   const handleCloseModal = () => {
     onClose();
   };
@@ -22,10 +24,15 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
 
   console.log(ID)
 
+  useEffect(()=>{
+    if (ROWDATA.STATUS === "Checked In" || ROWDATA.STATUS === "Checked Out" || ROWDATA.STATUS === "Confirmed"){
+      setrcstatus("Paid")
+    }
+  })
 
   const [CustomerData, setData] = useState([]);
 
-  const updatePayCus = (data) => {
+  const updatePayCus = async (data) => {
     const id = ID
     const paycusid = data.CID
     console.log('thanh cong')
@@ -35,8 +42,7 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
     }).then(
 
       (response) => {
-        toast.success('1 reservation and receipt removed!', {
-          position: "top-right",
+        toast.success('Reservation confirmed', {
           autoClose: 1500,
           hideProgressBar: false,
           closeButton: false, // Disable the close button
@@ -49,22 +55,18 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
     )
   }
 
+  const updateRevenue = async () => {
+    try {
+        await axios.post("http://localhost:5000/createreservationdetail", {
+       
+        });
+      
+      console.log("Data posted successfully");
+    } catch (error) {
+      console.error("Error posting data:", error);
+    }
+  }
 
-  // const AddCusReceipt = (data) => {
-  //   const id = ID
-  //   const paycusid = data.CID
-  //   console.log('thanh cong')
-  //   axios.put("http://localhost:5000/updatepaycus", {
-  //     id: id,
-  //     paycusid: paycusid,
-
-  //   }).then(
-
-  //     (response) => {
-  //       alert("updated")
-  //     }
-  //   )
-  // }
   const arrivalDate = new Date(ROWDATA.ARRIVAL);
   const departureDate = new Date(ROWDATA.DEPARTURE);
 
@@ -88,13 +90,17 @@ export default function ChoosePayCusTable({ ID, onClose, handleSelect, ROWDATA})
         paycusid : paycusid,
         address : address,
         name: name,
+        room: ROWDATA.ROOM,
+        roomtype: ROWDATA.ROOM_TYPE,
         price: price,
         printday: printday,
         rentdays: dayDifference,
       });
       console.log("thanh cong post len receipt");
       setIsPicked(2)
-      window.location.reload()
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
       // const reservationID = response.data.insertId;
       // AddReservationsDetail(reservationID);
     } catch (error) {

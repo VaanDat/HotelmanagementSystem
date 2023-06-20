@@ -240,7 +240,7 @@ app.post('/createroomstype', (req, res) => {
             if (err) {
                 console.log(err)
             } else {
-                res.send('value inserted')
+                res.send(result)
             }
         }
     );
@@ -349,8 +349,9 @@ app.put('/updatereservation', (req, res) => {
 app.put('/updatepaycus', (req, res) => {
     const paycusid = req.body.paycusid;
     const id = req.body.id;
-    DBconnection.query("UPDATE reservations SET PAYCUSID = ? WHERE ID = ?", 
-    [paycusid, id], (err,result) => {
+    const confirmed = true;
+    DBconnection.query("UPDATE reservations SET PAYCUSID = ?, CONFIRMED = ? WHERE ID = ?", 
+    [paycusid, confirmed, id], (err,result) => {
         if (err){
             console.log(err)
         }
@@ -456,6 +457,21 @@ app.put('/updatestatus', (req, res) => {
     })
 })
 
+app.put('/updatestatusconfirmed', (req, res) => {
+    const id = req.body.id;
+    const status = req.body.status;
+    const confirmed = req.body.confirmed
+
+    DBconnection.query("UPDATE reservations SET STATUS = ?, CONFIRMED = ? WHERE ID = ?", 
+    [status, confirmed, id], (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
 //reservation detail
 
 app.post('/createreservationdetail', (req, res) => {
@@ -544,9 +560,12 @@ app.post('/addreceiptcus', (req, res) => {
     const printday = req.body.printday;
     const price = req.body.price;
     const rentdays = req.body.rentdays;
+    const room = req.body.room;
+    const roomtype = req.body.roomtype
+    const status = "Paid"
     
-    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, RID, FULL_NAME, ADDRESS, RENTDAYS, PRINTDAY, PRICE) VALUES (?,?,?,?,?,?,?,?)',
-        [userid, paycusid, rid, name, address, rentdays, printday, price], (err, result) => {
+    DBconnection.query('INSERT INTO rental_receipt (USERID, CID, ROOM, ROOM_TYPE, RID, FULL_NAME, ADDRESS, RENTDAYS, PRINTDAY, PRICE, STATUS) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+        [userid, paycusid, room, roomtype, rid, name, address, rentdays, printday, price, status], (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -556,6 +575,26 @@ app.post('/addreceiptcus', (req, res) => {
         }
     );
 })
+
+app.put('/addreceiptstatus', (req, res) => {
+    console.log(req.body)
+    const userid = req.body.userid;
+    const rid = req.body.rid;
+    const status = req.body.status;
+    
+    
+    DBconnection.query('UPDATE rental_receipt SET STATUS = ? WHERE RID = ?',
+        [status, rid], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                 // Retrieve the generated Reservation ID
+                res.send(result); // Include the Reservation ID in the response
+            }
+        }
+    );
+})
+
 
 app.get('/receiptdetail', (req, res) => {
     const userid = req.query.userid;
@@ -587,6 +626,36 @@ app.delete('/deleterentalreceipt/:id', (req,res) => {
     })
 })
 
+app.put('/updaterentaldescription', (req, res) => {
+    const id = req.body.recid;
+    const description = req.body.description;
+
+    DBconnection.query("UPDATE rental_receipt SET DESCRIPTION = ? WHERE RECID = ?", 
+    [description, id], (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
+app.post('/createrevenue', (req, res) => {
+    const userid = req.body.userid;
+    const roomtype = req.body.roomtype;
+    const rtid = req.body.rtid;
+
+    DBconnection.query('INSERT INTO revenue (USERID, RTID, TYPE) VALUES (?,?,?)',
+        [userid, rtid, roomtype], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send(result); 
+            }
+        }
+    );
+})
 
 
 // app.get('/roomstype', (req, res) => {

@@ -6,13 +6,11 @@ import axios from "axios";
 export default function UpdateReceiptStatus({ ID, STATUS, DEPARTURE, ROWDATA }) {
   const [status, setStatus] = useState(STATUS);
   const [openModal, setOpenModal] = useState(false);
-  const hotelstatus = ["Confirmed", "Pending", "Cancelled", "Checked In", "Checked Out"];
+  const hotelstatus = ["Paid", "Pending", "Refunded"];
   const statusColors = {
-    "Confirmed": "bg-green-500",
+    "Paid": "bg-green-500",
     "Pending": "bg-[#cbac88]", 
-    "Cancelled": "bg-[#fe5f55]",
-    "Checked In": "bg-blue-500",
-    "Checked Out": "bg-[#3d70b2]",
+    "Refunded": "bg-[#fe5f55]",
   };
   const [optioncolor, setOptionColor] = useState(statusColors[STATUS]);
 

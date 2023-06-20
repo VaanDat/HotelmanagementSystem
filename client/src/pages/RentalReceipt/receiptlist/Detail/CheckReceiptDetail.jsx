@@ -10,13 +10,15 @@ export default function CheckReceiptDetail({ close, ID, PAYCUS, ROWDATA }) {
     const handleSubmit = (e) => {
         e.prevenDefault();
     }
+    
 
     return (
         <div className="pl-24">
-            <div className="translate-x-[38rem] text-2xl">
+            <div className="translate-x-[35rem] text-2xl">
                 <a className="close cursor-pointer" onClick={close}>
                     &times;
                 </a>
+                <div className="translate-x-[-23rem] font-neon translate-y-[-2rem] absolute">History</div>
             </div>
             <form onSubmit={handleSubmit} className="grid grid-rows-3 grid-flow-col gap-x-2 gap-y-1 h-[14rem] -translate-x-16">
                

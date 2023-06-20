@@ -6,7 +6,12 @@ export const RoomsColumns = [
     { Header: 'Rooms no', accessor: 'ROOM_NO' },
     { Header: 'Type', accessor: 'TYPE' },
     { Header: 'In Room', accessor: 'IN_ROOM' },
-    { Header: 'Price', accessor: 'PRICE' },
+    { Header: 'Price', accessor: 'PRICE', Cell: ({ value }) => (
+      <div>
+        {value.toLocaleString(undefined, {
+        })}
+      </div>
+    ),},
     { Header: 'Status', accessor: 'STATUS' },
     { Header: 'Description', accessor: 'DESCRIPTION' },
     { Header: 'Actions', Cell: ({ row }) => <Popup modal trigger={<button><img className="w-7 h-7 translate-x-4" src={Edit} alt="" /></button>}>
