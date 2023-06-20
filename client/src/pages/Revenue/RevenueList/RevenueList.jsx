@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 import Table from '../../../Table';
 import { useMemo } from 'react';
-import { ReservationsColumns } from '../../Reservations/ReservationsColumns';
+import { RevenueColumns } from './RevenueColumns';
 
 export default function RevenueList({deliverstate, month, year}) {
 
     const [open, setOpen] = useState(false);
     const closeModal = () => setOpen(false);
     const [openReceiptList, setOpenReceiptList] = useState(true);
-    const [ReservationData, setData] = useState([]);
+    const [RevenueData, setRevenueData] = useState([]);
+    const [ReserData, setReserData] = useState([]);
 
     const handleOpen = () => {
         setOpen(true)
@@ -22,25 +23,40 @@ export default function RevenueList({deliverstate, month, year}) {
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem("userAuth"))
         let userid = user.ID;
-        const receiptmonth = month;
-        const receiptyear = year;
         const getReservations = async () => {
           // let temp = axios.get('http://localhost:5000/customers')
-          const response = await fetch(`http://localhost:5000/reservationmonthscale?userid=${userid}&month=${receiptmonth}&year=${receiptyear}`);
+          const response = await fetch(`http://localhost:5000/reservationsmonthscale?userid=${userid}&month=${month}&year=${year}`);
           const jsonData = await response.json(); 
-          console.log(jsonData);
-          setData(jsonData);
+          console.log("Reser", jsonData);
+          setReserData(jsonData);
         }
         getReservations()
       },[])
 
-    const data = useMemo(() => ReservationData);
-    const columns = useMemo(() => ReservationsColumns);
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem("userAuth"))
+        let userid = user.ID;
+        const receiptmonth = month;
+        const receiptyear = year;
+        const getRevenue = async () => {
+          // let temp = axios.get('http://localhost:5000/customers')
+          const response = await fetch(`http://localhost:5000/getrevenue?userid=${userid}&month=${receiptmonth}&year=${receiptyear}`);
+          const jsonData = await response.json(); 
+          console.log(jsonData);
+          setRevenueData(jsonData);
+        }
+        getRevenue()
+      },[])
+
+    const data = useMemo(() => RevenueData);
+    const columns = useMemo(() => RevenueColumns);
 
     const tableInstance = useTable({ columns, data });
-
+    console.log(data)
     return (
         <div className=''>
+            <div>Month: {month}</div>
+            <div>Year: {year}</div>
             <div onClick={()=>deliverstate(false)}>back</div>
             <Table tableInstance={tableInstance} />
         </div>
