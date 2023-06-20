@@ -12,7 +12,7 @@ export const RoomsTypeColumns = [
       </div>
     ),},
     { Header: 'Capacity', accessor: 'CAPACITY' },
-    { Header: 'Surchage Rate', accessor: 'SC_RATE' },
+    { Header: 'Surcharge Rate', accessor: 'SC_RATE' },
     { Header: 'Description', accessor: 'DESCRIPTION' },
     {
       Header: 'Action', Cell: ({ row }) => <Popup modal trigger={<button className="translate-x-3"><img src={Edit} alt="" className="w-7 h-7" /></button>}>
