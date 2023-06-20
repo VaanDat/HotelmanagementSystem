@@ -271,6 +271,7 @@ app.post("/createroomstype", (req, res) => {
   );
 });
 
+<<<<<<< HEAD
 app.get("/roomstype", (req, res) => {
   const userId = req.query.userId;
   DBconnection.query(
@@ -286,6 +287,29 @@ app.get("/roomstype", (req, res) => {
     }
   );
 });
+=======
+
+
+app.get('/roomstype', (req, res) => {
+    const userId = req.query.userId;
+    DBconnection.query("SELECT * FROM rooms_type WHERE USERID = ?",
+    [userId],
+    (err, result) => {
+        if (err) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                // Handle the constraint error by sending an appropriate error response
+                res.status(400).json({ error: 'Duplicate entry' });
+              } else {
+                // Handle other errors
+                res.status(500).json({ error: 'Internal server error' });
+              }
+            console.log(err)
+            res.status(400).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+>>>>>>> fa5d8bd4e68801ab8f1e012abb4b52fffe4b9cca
 
 app.put("/updateroomstype", (req, res) => {
   const type = req.body.type;
@@ -461,10 +485,42 @@ app.put("/updatereservationdetail", (req, res) => {
   );
 });
 
+<<<<<<< HEAD
 app.get("/reservations", (req, res) => {
   const userid = req.query.userid;
   DBconnection.query(
     "SELECT * FROM reservations WHERE USERID = ?",
+=======
+
+
+
+
+app.put('/updatereservationdetail', (req, res) => {
+    const userid = req.body.userid;
+    const reserid = req.body.reserID;
+    const customerid = req.body.customerID;
+    const fullname = req.body.fullname;
+    const custype = req.body.custype;
+    const identity = req.body.identity;
+    const birthday = req.body.birthday;
+
+    DBconnection.query("UPDATE reservation_detail SET USERID = ?, CID = ?, FULL_NAME = ?, TYPE = ?, IDENTITY = ?, BIRTHDAY = ? WHERE RID = ?",  
+    [userid, customerid, fullname, custype, identity, birthday, reserid], (err,result) => {
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
+
+
+app.get('/reservations', (req, res) => {
+    const userid = req.query.userid;
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
+>>>>>>> fa5d8bd4e68801ab8f1e012abb4b52fffe4b9cca
     [userid],
     (err, result) => {
       if (err) {
@@ -475,6 +531,55 @@ app.get("/reservations", (req, res) => {
     }
   );
 });
+
+app.get('/reservationsmonthscale', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND MONTH = ? AND YEAR = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
+    [userid, month, year],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/cancelledreservations', (req, res) => {
+    const userid = req.query.userid;
+    const status = "Cancelled"
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS = ?",
+    [userid, status],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/pendingreservations', (req, res) => {
+    const userid = req.query.userid;
+    const status = "Pending"
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND STATUS = ?",
+    [userid, status],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
 
 //tilephuthu
 
@@ -718,6 +823,7 @@ app.put("/updaterentaldescription", (req, res) => {
   );
 });
 
+<<<<<<< HEAD
 app.post("/createrevenue", (req, res) => {
   const userid = req.body.userid;
   const roomtype = req.body.roomtype;
@@ -814,6 +920,61 @@ app.delete("/deletestaff/:id", (req, res) => {
     }
   });
 });
+=======
+app.get('/revenue', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year;
+    DBconnection.query("SELECT * FROM reservations WHERE USERID = ? AND MONTH = ? AND YEAR = ? AND STATUS <> 'Cancelled' AND STATUS <> 'Pending'",
+    [userid, month, year],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+app.get('/getrevenue', (req, res) => {
+    const userid = req.query.userid;
+    const month = req.query.month;
+    const year = req.query.year;
+    DBconnection.query("SELECT * FROM revenue WHERE USERID = ?",
+    [userid],
+    (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send('Error retrieving data');
+        }
+        else {
+            res.send(result)
+        }
+
+    })
+})
+
+// app.put('/createrevenue', (req, res) => {
+//     const userid = req.body.userid;
+//     const roomtype = req.body.roomtype;
+//     const rtid = req.body.rtid;
+
+//     DBconnection.query('UPDATE revenue SET RID = ? AND MONTH = ? AND YEAR = ? WHERE RECID = ?',
+//         [userid, rtid, roomtype], (err, result) => {
+//             if (err) {
+//                 console.log(err)
+//             } else {
+//                 res.send(result); 
+//             }
+//         }
+//     );
+// })
+
+
+>>>>>>> fa5d8bd4e68801ab8f1e012abb4b52fffe4b9cca
 
 // app.get('/roomstype', (req, res) => {
 //     const userId = req.query.userId;

@@ -10,6 +10,7 @@ import RoomDetail from "./pages/RoomDetail";
 import BookingPage from "./pages/BookingPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
+import Support from "./pages/Support";
 import { ModalProvider } from "./ModalContext";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
     <ModalProvider>
       <Routes>
         <Route path="/" element={<Layout />} />
-        <Route index element={<IndexPage />} />
+        <Route index element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />} />
@@ -40,6 +41,7 @@ function App() {
         <Route path="/admin/staffs" element={<AdminPage />} />
         <Route path="/admin/revenue" element={<AdminPage />} />
         <Route path="/admin/roomstype" element={<AdminPage />} />
+        <Route path="/support" element={<Support/>}/>
       </Routes>
     </ModalProvider>
   );

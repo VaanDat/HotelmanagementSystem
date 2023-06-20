@@ -14,7 +14,7 @@ export default function LoginPage() {
       if (res.data[0]) {
         let data = JSON.stringify(res.data[0]);
         localStorage.setItem("userAuth", data);
-        window.location.href = "/admin";
+        window.location.href = "/admin/dashboard";
       } else {
         //notify sai ngu
       }

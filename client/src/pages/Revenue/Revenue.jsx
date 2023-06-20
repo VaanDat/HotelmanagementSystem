@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from 'moment';
 import RevenueList from "./RevenueList/RevenueList";
 
@@ -35,6 +35,26 @@ export default function Revenue() {
     }
   };
 
+  const [ReservationData, setData] = useState([]);
+
+  const [RoomsTypeData, setRTData] = useState([]);
+
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("userAuth"))
+    let userid = user.ID;
+    const getRoomsType = async () => {
+      try{
+      const response = await fetch(`http://localhost:5000/roomstype?userId=${userid}`);
+      const jsonData = await response.json(); 
+      console.log(jsonData);
+      setRTData(jsonData);
+      } catch (error){
+        console.error("Error fetching data:", error);
+      }
+    }
+    getRoomsType()
+  },[])
+
 
   const renderMonthCards = () => {
     const months = getPastMonths();
@@ -63,6 +83,8 @@ export default function Revenue() {
       </div>
     ));
   };
+
+
 
   return (
     <div className="list relative">

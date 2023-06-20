@@ -36,10 +36,6 @@ export default function ActionRoomsType({ close, ID, type, level, price, capacit
     const data = useMemo(() => CustomerData);
 
 
-    const changeHandler = (value) => {
-        setValue(value);
-    }
-
 
     const updateRoomsType = (ID) => {
         console.log('thanh cong')
@@ -58,6 +54,10 @@ export default function ActionRoomsType({ close, ID, type, level, price, capacit
             }
         )
     }
+
+
+
+
 
     console.log(ID)
     const deleteRoomsType = (ID) => {
@@ -121,9 +121,11 @@ export default function ActionRoomsType({ close, ID, type, level, price, capacit
                         type="text"
                         name="price"
                         id="price"
+                        // value={inputValue}
                         defaultValue={price}
                         onChange={(e) => {
                             setnewPrice(e.target.value);
+                            //  handleInputChange();
                         }}
                     />
                 </div>

@@ -142,7 +142,7 @@ export default function AddRoomsType({ close }) {
                
                 <div className="translate-x-7 translate-y-[220px]">
                     {/* <button className="right-0 bottom-0 -translate-x-40 absolute  bg-[#f59e0b] text-white p-2 rounded-lg">Delete</button> */}
-                    <div className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" onClick={addRoomsType}>Save Changes</div>
+                    <button className="right-0 bottom-0 absolute -translate-x-8 bg-[#374151] text-white p-2 rounded-lg cursor-pointer w-[8rem]" onClick={addRoomsType}>Save Changes</button>
                 </div>
             </form>
         </div>

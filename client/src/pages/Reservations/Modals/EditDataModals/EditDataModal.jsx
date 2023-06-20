@@ -330,12 +330,13 @@ export default function EditDataModal({ close, ID, RoomID, roomname, roomtype, r
           userid: userid,
           reserID: reservationID,
           fullname: customer.FULL_NAME,
+          address: customer.ADDRESS,
           custype: customer.COUNTRY,
           identity: customer.IDENTITY_NUMBER,
           birthday: customer.BIRTHDAY,
         });
       }
-      console.log("Data updated successfully");
+      console.log("Reservation detail updated successfully");
       window.location.reload();
     } catch (error) {
       console.error("Error updating data:", error);
